@@ -4,6 +4,10 @@
 # https://testdriven.io/blog/modern-tdd/
 # https://alex.dzyoba.com/blog/python-import/
 
+# http://automatetheboringstuff.com/#toc
+
+# Check out my article on python anaconda 
+
 import setuptools
 
 #setuptools.setup(name='mcdeltaxp', packages=['mcdeltaxp'])

@@ -35,5 +35,20 @@ class TDDmcdelta(unittest.TestCase):
     def test05_walk_the_tree_pull_coin_n_cap(self):
         MCDelta.pull_coin_n_market_cap()
 
+    def test06_timestamp(self):
+        MCDelta.displaytimestamp()
+
+    def test07_create_file_with_timestamp_name(self):
+        MCDelta.create_file_with_timestamp_name()
+
+    def test08_writejson_to_timestamp_file(self):
+        MCDelta.writejson_to_timestamp_file()
+
+    def test09_list_data_files(self):
+        MCDelta.list_data_files()
+
+    def test10_read_last_data_file(self):
+        MCDelta.read_last_data_file()
+
 if __name__ == '__main__':
     unittest.main()
