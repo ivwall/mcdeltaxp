@@ -1,4 +1,5 @@
 import unittest
+import subprocess
 
 # ------------------------------------------------
 # https://stackoverflow.com/questions/54598292/python-modulenotfounderror-when-trying-to-import-module-from-imported-package/54613085
@@ -49,6 +50,35 @@ class TDDmcdelta(unittest.TestCase):
 
     def test10_read_last_data_file(self):
         MCDelta.read_last_data_file()
+
+    def test11_zip_n_deploy(self):
+        print("")
+        subprocess.run(["ls", "-l"])
+        print("")
+        print(os.getcwd())
+        print("")
+        os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp')
+        print("")
+        print(os.getcwd())
+        print("")
+        subprocess.run(["ls", "-l"])
+        print("")
+        subprocess.run(["jar", "cvf", "mcdelta.war", "mcdelta"])
+        print("")
+        subprocess.run(["ls", "-l"])
+        print("")
+        print("")
+        subprocess.run(["sudo", "cp", "mcdelta.war", "/opt/tomcat/latest/webapps/"])
+        print("")
+        subprocess.run(["ls", "-l"])
+        print("")
+        subprocess.run(["rm", "mcdelta.war"])
+        print("")
+        subprocess.run(["ls", "-l"])
+        print("")
+        print("      zip n deploy ")
+
+    #def test12_
 
 if __name__ == '__main__':
     unittest.main()
