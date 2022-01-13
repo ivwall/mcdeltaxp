@@ -67,13 +67,8 @@ class MCDelta():
             pnn = path + os.path.sep + ts_string
             print( pnn ) 
 
-            with open(pnn,"w") as variable_name:
-                variable_name.write('incremental steps')            
-
             listOfFiles = os.listdir('.')
-            #pattern = "*.py"
             for entry in listOfFiles:
-                #if fnmatch.fnmatch(entry, pattern):
                 print (entry)
 
             '''
@@ -160,6 +155,7 @@ class MCDelta():
 
 
     def read_last_data_file():
+        print("read_last_data_file()")
         listOfFiles = os.listdir('.')
         file_list_len = len(listOfFiles)        
         last_file = listOfFiles[ file_list_len - 1]
@@ -187,7 +183,22 @@ class MCDelta():
             rank = data["coins"][s]["rank"]
             print("  "+str(rank)+" "+symbol)
 
+    def process_data_number01():
+        print("")
+        print("")
+        print("start figuring how to process the data")
+        print("   start by walking the json object")
+        print("   ")
+        print("   my current thinking is to build a json object")
+        print("   from which generate the html file")
+        print("   ")
+        print("   ")
+        print("")
+        print("")
 
-
-
-
+    def develop_mcdelta_json():
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta.json"
+        print("")
+        print(" working file: " + mcdelta_json_dev_file)
+        print("")
+        print("")

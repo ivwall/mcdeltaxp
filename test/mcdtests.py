@@ -55,6 +55,8 @@ class TDDmcdelta(unittest.TestCase):
         print("")
         subprocess.run(["ls", "-l"])
         print("")
+        subprocess.run(["sudo", "su -"])
+        print("")
         print(os.getcwd())
         print("")
         os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp')
@@ -68,6 +70,8 @@ class TDDmcdelta(unittest.TestCase):
         subprocess.run(["ls", "-l"])
         print("")
         print("")
+        subprocess.run(["sudo", "rm", "/opt/tomcat/latest/webapps/mcdelta.war"])
+        print("")
         subprocess.run(["sudo", "cp", "mcdelta.war", "/opt/tomcat/latest/webapps/"])
         print("")
         subprocess.run(["ls", "-l"])
@@ -78,7 +82,8 @@ class TDDmcdelta(unittest.TestCase):
         print("")
         print("      zip n deploy ")
 
-    #def test12_
+    def test12_start_processing_data(self):
+        MCDelta.process_data_number01()
 
 if __name__ == '__main__':
     unittest.main()
