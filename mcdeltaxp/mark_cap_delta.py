@@ -1,8 +1,9 @@
 import requests
 import json
 import datetime
+from datetime import date
 import os
-import subprocess
+#import subprocess
 
 cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
@@ -135,9 +136,9 @@ class MCDelta():
         print(type(listOfFiles))
         print("number of files is ",len(listOfFiles))
 
-        more_than_10 = True
-        while more_than_10:            
-            if len(listOfFiles) > 10:
+        more_than_10000 = True
+        while more_than_10000:            
+            if len(listOfFiles) > 10000:
                 listOfFiles = os.listdir('.')
                 print(listOfFiles[0])
                 file_number_1 = listOfFiles[0]
@@ -151,7 +152,7 @@ class MCDelta():
                 pnn = path_2_data + os.path.sep + file_number_3
                 os.remove( pnn )
             else:
-                more_than_10 = False
+                more_than_10000 = False
 
 
     def read_last_data_file():
@@ -202,3 +203,238 @@ class MCDelta():
         print(" working file: " + mcdelta_json_dev_file)
         print("")
         print("")
+        f = open(mcdelta_json_dev_file)
+        data = json.load(f)
+        f.close()
+        text = json.dumps(data, sort_keys=True,indent=4)
+        print(text)
+
+    def write_html_file():
+        dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev2.html"
+        print("")
+        os.remove( dev2_html_file )
+        f = open(dev2_html_file, "w")
+        f.write("<!DOCTYPE html>")
+        f.write("<html ng-app=\"plunker\">")
+        f.write("  <head>")
+        f.write("    <meta charset=\"utf-8\" />")
+        f.write("    <title>MC Delta - Market Cap Changes</title>")
+        f.write("    <script>document.write('<base href=\"' + document.location + '\" />');</script>")
+        f.write("    <link rel=\"stylesheet\" href=\"style.css\" />")
+        f.write("    <script data-require=\"angular.js@1.3.x\" src=\"https://code.angularjs.org/1.3.20/angular.js\" data-semver=\"1.3.20\"></script>")
+        f.write("    <script data-require=\"jquery@3.1.1\" data-semver=\"3.1.1\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>")
+        f.write("    <script src=\"app.js\"></script>")
+        f.write("    <script>")
+        f.write("      $(document).ready(function() {")
+        f.write("  $('tbody').scroll(function(e) { //detect a scroll event on the tbody")
+        f.write("  	/*")
+        f.write("    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement")
+        f.write("    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    ")
+        f.write("    */")
+        f.write("    $('thead').css(\"left\", -$(\"tbody\").scrollLeft()); //fix the thead relative to the body scrolling")
+        f.write("    $('thead th:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first cell of the header")
+        f.write("    $('tbody td:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first column of tdbody")
+        f.write("  });")
+        f.write("});")
+        f.write("    </script>")
+        f.write("  </head>")
+        f.write("  <body ng-controller=\"MainCtrl\">")
+        f.write("  What's up doc?!")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta.json"
+        delta_json = open(mcdelta_json_dev_file)
+        data = json.load(delta_json)
+        delta_json.close()
+        #if isinstance(data, dict):
+        #    print("dumb data")
+        for (k, v) in data.items():
+            print("Key: " + k)
+            print("Value: " + str(v))
+            print(type(v)) 
+            list_count = len(v)
+            print(list_count)
+            x = 0
+            while x < list_count:
+                print(v[x])
+                x += 1
+            print()
+        print("")       
+        print("so there needs to be a matrix transformation")       
+        print("creating an html table works easier on rows")       
+        print("")       
+        print("")       
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("  </body>")
+        f.write("</html>")
+        f.close()
+
+    def ruwb_json():
+        print("read write update backup json")
+        data_dir = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/data"
+        os.chdir(data_dir)
+        listOfFiles = os.listdir('.')
+        for entry in listOfFiles:
+            timestamp = date.fromtimestamp(float(entry))
+            print("Date =", timestamp)
+            print (entry)
+        mcdelta_03_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
+        delta_json = open(mcdelta_03_json_dev_file)
+        data = json.load(delta_json)
+        delta_json.close()
+        print(data)
+
+
+    def write_mcdelta_html_from_json_data():
+        #https://stackoverflow.com/questions/34818782/iterate-through-nested-json-object-and-get-values-with-python
+        def func1(data):
+            for key,value in data.items():
+                print (str(key)+'->'+str(value))
+                if type(value) == type(dict()):
+                    func1(value)
+                elif type(value) == type(list()):
+                    for val in value:
+                        if type(val) == type(str()):
+                            pass
+                        elif type(val) == type(list()):
+                            pass
+                        else:
+                            func1(val)
+
+        def func2(data,f):
+            for key,value in data.items():
+                print (str(key)+'->'+str(value))
+                #f.write(str(key)+'->'+str(value))
+                f.write("<tr>")
+                f.write(str(key))
+                if type(value) == type(dict()):
+                    f.write("<tr>")
+                    func2(value,f)
+                    f.write("</tr>")
+                elif type(value) == type(list()):
+                    for val in value:
+                        if type(val) == type(str()):
+                            f.write("<td>")
+                            f.write(val)
+                            f.write("</td>")
+                            pass
+                        elif type(val) == type(list()):
+                            pass
+                        else:
+                            func2(val,f)
+                f.write("</tr>")
+
+        def func3(data,f):
+            print("func3")
+            #for key,value in data.items():
+            #    print (str(key)+'->'+str(value))
+                #f.write(str(key)+'->'+str(value))
+            #    f.write("<tr>")
+            #    f.write(str(key))
+            #if type(value) == type(dict()):
+            if type(data) == type(dict()):
+                f.write("<tr>")
+                func3(data,f)
+                f.write("</tr>")
+            elif type(data) == type(list()):
+                for val in data:
+                    if type(val) == type(str()):
+                        f.write("<td>")
+                        f.write(val)
+                        f.write("</td>")
+                        pass
+                    elif type(val) == type(list()):
+                        pass
+                    else:
+                        #func3(val,f)
+                        print("junk")
+            f.write("</tr>")
+
+        print("write_mcdelta_html_from_json_data")
+        print()
+        mcdelta_03_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
+        delta_json = open(mcdelta_03_json_dev_file)
+        data = json.load(delta_json)
+        delta_json.close()
+        print(data)
+        func1(data)
+
+        dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev4.html"
+        print("")
+        try:
+            os.remove( dev2_html_file )
+        except:
+            print("file does not exist")
+        f = open(dev2_html_file, "w")
+        '''
+        f.write("<!DOCTYPE html>")
+        f.write("<html ng-app=\"plunker\">")
+        f.write("  <head>")
+        f.write("    <meta charset=\"utf-8\" />")
+        f.write("    <title>MC Delta - Market Cap Changes</title>")
+        f.write("    <script>document.write('<base href=\"' + document.location + '\" />');</script>")
+        f.write("    <link rel=\"stylesheet\" href=\"style.css\" />")
+        f.write("    <script data-require=\"angular.js@1.3.x\" src=\"https://code.angularjs.org/1.3.20/angular.js\" data-semver=\"1.3.20\"></script>")
+        f.write("    <script data-require=\"jquery@3.1.1\" data-semver=\"3.1.1\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>")
+        f.write("    <script src=\"app.js\"></script>")
+        f.write("    <script>")
+        f.write("      $(document).ready(function() {")
+        f.write("  $('tbody').scroll(function(e) { //detect a scroll event on the tbody")
+        f.write("  	/*")
+        f.write("    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement")
+        f.write("    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    ")
+        f.write("    */")
+        f.write("    $('thead').css(\"left\", -$(\"tbody\").scrollLeft()); //fix the thead relative to the body scrolling")
+        f.write("    $('thead th:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first cell of the header")
+        f.write("    $('tbody td:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first column of tdbody")
+        f.write("  });")
+        f.write("});")
+        f.write("    </script>")
+        f.write("  </head>")
+        f.write("  <body ng-controller=\"MainCtrl\">")
+        f.write("  What's up doc?!")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        '''
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
+        delta_json = open(mcdelta_json_dev_file)
+        data = json.load(delta_json)
+        delta_json.close()
+
+        print(type(data["mcdelta"]))
+
+        func2(data,f)
+        #func2(data["mcdelta"],f)
+        #func3(data["mcdelta"],f)
+
+        print("")       
+        print("so there needs to be a matrix transformation")       
+        print("creating an html table works easier on rows")       
+        print("")       
+        print("")
+        '''       
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("")
+        f.write("  </body>")
+        f.write("</html>")
+        '''
+        f.close()
+
+
+
+

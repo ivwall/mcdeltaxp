@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>MC Delta - Market Cap Changes</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.20/angular.js" data-semver="1.3.20"></script>
+    <script data-require="jquery@3.1.1" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+      $(document).ready(function() {
+  $('tbody').scroll(function(e) { //detect a scroll event on the tbody
+  	/*
+    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
+    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    
+    */
+    $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
+    $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
+    $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
+  });
+});
+
+    </script>
+  </head>
+
+  <body ng-controller="MainCtrl">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>01/01/2022</th>
+          <th>01/02/2022</th>
+          <th>01/03/2022</th>
+          <th>01/04/2022</th>
+          <th>01/05/2022</th>
+          <th>01/06/2022</th>
+          <th>01/07/2022</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>00001</td>
+          <td>BTC</td>
+          <td>Cheshire</td>
+          <td>52</td>
+          <td>Brewer</td>
+          <td>£47,000</td>
+          <td>Married</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>00002</td>
+          <td>ETH</td>
+          <td>Cumbria</td>
+          <td>34</td>
+          <td>Shepherdess</td>
+          <td>£28,000</td>
+          <td>Single</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>00003</td>
+          <td>USDT</td>
+          <td>Wiltshire</td>
+          <td>57</td>
+          <td>Musician</td>
+          <td>£124,000</td>
+          <td>Married</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>00004</td>
+          <td>BNB</td>
+          <td>Worchestershire</td>
+          <td>48</td>
+          <td>Naturalist</td>
+          <td>£65,000</td>
+          <td>Married</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>00005</td>
+          <td>USDC</td>
+          <td>Hertfordshire</td>
+          <td>67</td>
+          <td>Pharmasist</td>
+          <td>Retired</td>
+          <td>Married</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>00006</td>
+          <td>SOL</td>
+          <td>Lothian </td>
+          <td>36</td>
+          <td>Vigilante</td>
+          <td>£86,000</td>
+          <td>Single</td>
+          <td>Unknown</td>
+        </tr>
+        <tr>
+          <td>00007</td>
+          <td>ADA</td>
+          <td>Bedfordshire</td>
+          <td>43</td>
+          <td>Housewife</td>
+          <td>N/A</td>
+          <td>Married</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>00008</td>
+          <td>XRP</td>
+          <td>New York</td>
+          <td>55</td>
+          <td>Policewoman</td>
+          <td>$36,000</td>
+          <td>Single</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>00009</td>
+          <td>DOT</td>
+          <td>Lincolnshire</td>
+          <td>45</td>
+          <td>Landowner</td>
+          <td>Lots</td>
+          <td>Married</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>00010</td>
+          <td>LUNA</td>
+          <td>Cheshire</td>
+          <td>352</td>
+          <td>Arcanist</td>
+          <td>A pile of gems</td>
+          <td>Single</td>
+          <td>0</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+
+<br/>
+<br/>
+
+</html>

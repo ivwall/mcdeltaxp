@@ -85,5 +85,17 @@ class TDDmcdelta(unittest.TestCase):
     def test12_start_processing_data(self):
         MCDelta.process_data_number01()
 
+    def test13_develop_mcdelta_json(self):
+        MCDelta.develop_mcdelta_json()
+
+    def test14_start_writing_html_file(self):
+        MCDelta.write_html_file()
+
+    def test15_read_update_write_json(self):
+        MCDelta.ruwb_json()
+
+    def test16_write_mcdelta_html_from_json_data(self):
+        MCDelta.write_mcdelta_html_from_json_data()
+
 if __name__ == '__main__':
     unittest.main()
