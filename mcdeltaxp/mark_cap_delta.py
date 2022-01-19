@@ -309,37 +309,7 @@ class MCDelta():
                         else:
                             func1(val)
 
-        def func2(data,f):
-            for key,value in data.items():
-                print (str(key)+'->'+str(value))
-                #f.write(str(key)+'->'+str(value))
-                f.write("<tr>")
-                f.write(str(key))
-                if type(value) == type(dict()):
-                    f.write("<tr>")
-                    func2(value,f)
-                    f.write("</tr>")
-                elif type(value) == type(list()):
-                    for val in value:
-                        if type(val) == type(str()):
-                            f.write("<td>")
-                            f.write(val)
-                            f.write("</td>")
-                            pass
-                        elif type(val) == type(list()):
-                            pass
-                        else:
-                            func2(val,f)
-                f.write("</tr>")
-
         def func3(data,f):
-            print("func3")
-            #for key,value in data.items():
-            #    print (str(key)+'->'+str(value))
-                #f.write(str(key)+'->'+str(value))
-            #    f.write("<tr>")
-            #    f.write(str(key))
-            #if type(value) == type(dict()):
             if type(data) == type(dict()):
                 f.write("<tr>")
                 func3(data,f)
@@ -360,7 +330,17 @@ class MCDelta():
 
         def write_row(data,f):
             print("write row")
-            print(data)
+            for key,value in data.items():
+                print(key)
+                f.write("<td>")
+                f.write(key)
+                f.write("</td>")
+                for element in data[key]:
+                    print(element)
+                    f.write("<td>")
+                    f.write(element)
+                    f.write("</td>")
+
 
 
         print("write_mcdelta_html_from_json_data")
@@ -370,7 +350,7 @@ class MCDelta():
         data = json.load(delta_json)
         delta_json.close()
         print(data)
-        func1(data)
+        #func1(data)
 
         dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev4.html"
         print("")
@@ -422,6 +402,7 @@ class MCDelta():
 
         # it is known that this is a list, so the if check is unnecessary
         #if type(mcdelta_list) == type(list()): 
+        '''
         for val in mcdelta_list:
             if type(val) == type(str()):
                 pass
@@ -432,6 +413,10 @@ class MCDelta():
                 write_row(val,f)
             else:
                 pass
+        '''
+
+        for val in mcdelta_list:
+            write_row(val,f)
 
         print("")       
         print("so there needs to be a matrix transformation")       
