@@ -18,11 +18,6 @@ sys.path.append(a)
 from mcdeltaxp.mark_cap_delta import MCDelta
 
 class TDDmcdelta(unittest.TestCase):
-    def setUp(self):
-        a = "b"
-
-    def test01(self):
-        print("mcdelta test01")
 
     def test04_pull_data(self):
         MCDelta.get_coin_stats()
@@ -44,8 +39,17 @@ class TDDmcdelta(unittest.TestCase):
 
     def test10_read_last_data_file(self):
         MCDelta.read_last_data_file()
+    
+    def test13_develop_mcdelta_json(self):
+        MCDelta.develop_mcdelta_json()
 
-    def test11_zip_n_deploy(self):
+    def test15_read_update_write_json(self):
+        MCDelta.ruwb_json()
+
+    def test16_write_mcdelta_html_from_json_data(self):
+        MCDelta.write_mcdelta_html_from_json_data()
+
+    def test17_zip_n_deploy(self):
         print("")
         subprocess.run(["ls", "-l"])
         print("")
@@ -75,15 +79,6 @@ class TDDmcdelta(unittest.TestCase):
         subprocess.run(["ls", "-l"])
         print("")
         print("      zip n deploy ")
-
-    def test13_develop_mcdelta_json(self):
-        MCDelta.develop_mcdelta_json()
-
-    def test15_read_update_write_json(self):
-        MCDelta.ruwb_json()
-
-    def test16_write_mcdelta_html_from_json_data(self):
-        MCDelta.write_mcdelta_html_from_json_data()
 
 if __name__ == '__main__':
     unittest.main()

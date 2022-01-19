@@ -4,7 +4,6 @@ import json
 import datetime
 from datetime import date
 import os
-#import subprocess
 
 cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
@@ -15,7 +14,6 @@ class MCDelta():
         print(type(response))
         text = json.dumps(response.json(), sort_keys=True,indent=4)
         print(text)
-
         print("response.status_code ",response.status_code)
         return response
 
@@ -24,7 +22,6 @@ class MCDelta():
         print(type(response))
         text = json.dumps(response.json(), sort_keys=True,indent=4)
         print(text)
-
         print("response.status_code ",response.status_code)
         print("walk the json tree, pull coin n cap")
 
@@ -69,36 +66,14 @@ class MCDelta():
             listOfFiles = os.listdir('.')
             for entry in listOfFiles:
                 print (entry)
-
-            '''
-            https://stackabuse.com/python-list-files-in-a-directory/
-            # define the ls command
-            ls = subprocess.Popen(["ls", "-p", "."],
-                                stdout=subprocess.PIPE,
-                                )
-
-            # define the grep command
-            grep = subprocess.Popen(["grep", "-v", "/$"],
-                                    stdin=ls.stdout,
-                                    stdout=subprocess.PIPE,
-                                    )
-
-            # read from the end of the pipe (stdout)
-            endOfPipe = grep.stdout
-
-            # output the files line by line
-            for line in endOfPipe:
-                print (line)
-            '''
+            #https://stackabuse.com/python-list-files-in-a-directory/
         except:
             print("error in create_file_with_timestamp_name")
 
     def writejson_to_timestamp_file():
         try:
             #os.chdir('../mcdeltaxp/data')
-            # !!!!!!!!!!!!!!!!!!!!!!!
             # set in previous method call, most intreguing
-            #
             path_2_data = os.getcwd()
 
             ct = datetime.datetime.now()
@@ -113,14 +88,6 @@ class MCDelta():
             file = open( pnn, "w")
             json.dump(data, file)
             file.close()
-
-            '''
-            listOfFiles = os.listdir('.')
-            #pattern = "*.py"
-            for entry in listOfFiles:
-                #if fnmatch.fnmatch(entry, pattern):
-                print (entry)
-            '''
         except:
             print("ERROR writejson_to_timestamp_file")
 
