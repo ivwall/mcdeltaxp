@@ -24,12 +24,6 @@ class TDDmcdelta(unittest.TestCase):
     def test01(self):
         print("mcdelta test01")
 
-    def test02(self):
-        pass
-
-    def test03(self):
-        MCDelta.wud()
-
     def test04_pull_data(self):
         MCDelta.get_coin_stats()
 
@@ -81,9 +75,6 @@ class TDDmcdelta(unittest.TestCase):
         subprocess.run(["ls", "-l"])
         print("")
         print("      zip n deploy ")
-
-    def test12_start_processing_data(self):
-        MCDelta.process_data_number01()
 
     def test13_develop_mcdelta_json(self):
         MCDelta.develop_mcdelta_json()

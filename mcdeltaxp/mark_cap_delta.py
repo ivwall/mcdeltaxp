@@ -10,9 +10,6 @@ cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
 class MCDelta():
 
-    def wud():
-        print("what's up doc?")
-
     def get_coin_stats():
         response = requests.get(cdata_site)
         print(type(response))
@@ -167,8 +164,6 @@ class MCDelta():
         f = open(pnn)
         data = json.load(f)
         f.close()
-        #print(data)
-        #text = json.dumps(response.json(), sort_keys=True,indent=4)
         text = json.dumps(data, sort_keys=True,indent=4)
         print(text)
         text = json.dumps(data["coins"][0], sort_keys=True,indent=4)
@@ -185,19 +180,6 @@ class MCDelta():
             rank = data["coins"][s]["rank"]
             print("  "+str(rank)+" "+symbol)
 
-    def process_data_number01():
-        print("")
-        print("")
-        print("start figuring how to process the data")
-        print("   start by walking the json object")
-        print("   ")
-        print("   my current thinking is to build a json object")
-        print("   from which generate the html file")
-        print("   ")
-        print("   ")
-        print("")
-        print("")
-
     def develop_mcdelta_json():
         mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta.json"
         print("")
@@ -210,75 +192,6 @@ class MCDelta():
         text = json.dumps(data, sort_keys=True,indent=4)
         print(text)
 
-    '''
-    def write_html_file():
-        dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev2.html"
-        print("")
-        os.remove( dev2_html_file )
-        f = open(dev2_html_file, "w")
-        f.write("<!DOCTYPE html>")
-        f.write("<html ng-app=\"plunker\">")
-        f.write("  <head>")
-        f.write("    <meta charset=\"utf-8\" />")
-        f.write("    <title>MC Delta - Market Cap Changes</title>")
-        f.write("    <script>document.write('<base href=\"' + document.location + '\" />');</script>")
-        f.write("    <link rel=\"stylesheet\" href=\"style.css\" />")
-        f.write("    <script data-require=\"angular.js@1.3.x\" src=\"https://code.angularjs.org/1.3.20/angular.js\" data-semver=\"1.3.20\"></script>")
-        f.write("    <script data-require=\"jquery@3.1.1\" data-semver=\"3.1.1\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>")
-        f.write("    <script src=\"app.js\"></script>")
-        f.write("    <script>")
-        f.write("      $(document).ready(function() {")
-        f.write("  $('tbody').scroll(function(e) { //detect a scroll event on the tbody")
-        f.write("  	/*")
-        f.write("    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement")
-        f.write("    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    ")
-        f.write("    */")
-        f.write("    $('thead').css(\"left\", -$(\"tbody\").scrollLeft()); //fix the thead relative to the body scrolling")
-        f.write("    $('thead th:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first cell of the header")
-        f.write("    $('tbody td:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first column of tdbody")
-        f.write("  });")
-        f.write("});")
-        f.write("    </script>")
-        f.write("  </head>")
-        f.write("  <body ng-controller=\"MainCtrl\">")
-        f.write("  What's up doc?!")
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("")
-        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta.json"
-        delta_json = open(mcdelta_json_dev_file)
-        data = json.load(delta_json)
-        delta_json.close()
-        #if isinstance(data, dict):
-        #    print("dumb data")
-        for (k, v) in data.items():
-            print("Key: " + k)
-            print("Value: " + str(v))
-            print(type(v)) 
-            list_count = len(v)
-            print(list_count)
-            x = 0
-            while x < list_count:
-                print(v[x])
-                x += 1
-            print()
-        print("")       
-        print("so there needs to be a matrix transformation")       
-        print("creating an html table works easier on rows")       
-        print("")       
-        print("")       
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("  </body>")
-        f.write("</html>")
-        f.close()
-    '''
 
     def ruwb_json():
         print("read write update backup json")
@@ -298,16 +211,13 @@ class MCDelta():
 
     def write_mcdelta_html_from_json_data():
         #https://stackoverflow.com/questions/34818782/iterate-through-nested-json-object-and-get-values-with-python
-
         def write_header_row(data,f):
             f.write("<tr>")
             for key,value in data.items():
-                #print(key)
                 f.write("<th style=\"left: 0px;\">")
                 f.write(key)
                 f.write("</th>")
                 for element in data[key]:
-                    #print(element)
                     f.write("<th>")
                     f.write(element)
                     f.write("</th>")
@@ -316,12 +226,10 @@ class MCDelta():
         def write_row(data,f):
             f.write("<tr>")
             for key,value in data.items():
-                #print(key)
                 f.write("<td style=\"left: 0px;\">")
                 f.write(key)
                 f.write("</td>")
                 for element in data[key]:
-                    #print(element)
                     f.write("<td>")
                     f.write(element)
                     f.write("</td>")
