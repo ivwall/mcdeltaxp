@@ -88,9 +88,6 @@ class TDDmcdelta(unittest.TestCase):
     def test13_develop_mcdelta_json(self):
         MCDelta.develop_mcdelta_json()
 
-    #def test14_start_writing_html_file(self):
-    #    MCDelta.write_html_file()
-
     def test15_read_update_write_json(self):
         MCDelta.ruwb_json()
 

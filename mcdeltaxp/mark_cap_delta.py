@@ -210,6 +210,7 @@ class MCDelta():
         text = json.dumps(data, sort_keys=True,indent=4)
         print(text)
 
+    '''
     def write_html_file():
         dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev2.html"
         print("")
@@ -277,6 +278,7 @@ class MCDelta():
         f.write("  </body>")
         f.write("</html>")
         f.close()
+    '''
 
     def ruwb_json():
         print("read write update backup json")
@@ -296,42 +298,6 @@ class MCDelta():
 
     def write_mcdelta_html_from_json_data():
         #https://stackoverflow.com/questions/34818782/iterate-through-nested-json-object-and-get-values-with-python
-        '''
-        def func1(data):
-            for key,value in data.items():
-                print (str(key)+'->'+str(value))
-                if type(value) == type(dict()):
-                    func1(value)
-                elif type(value) == type(list()):
-                    for val in value:
-                        if type(val) == type(str()):
-                            pass
-                        elif type(val) == type(list()):
-                            pass
-                        else:
-                            func1(val)
-        '''
-
-        '''
-        def func3(data,f):
-            if type(data) == type(dict()):
-                f.write("<tr>")
-                func3(data,f)
-                f.write("</tr>")
-            elif type(data) == type(list()):
-                for val in data:
-                    if type(val) == type(str()):
-                        f.write("<td>")
-                        f.write(val)
-                        f.write("</td>")
-                        pass
-                    elif type(val) == type(list()):
-                        pass
-                    else:
-                        #func3(val,f)
-                        print("junk")
-            f.write("</tr>")
-        '''
 
         def write_header_row(data,f):
             f.write("<tr>")
@@ -361,17 +327,12 @@ class MCDelta():
                     f.write("</td>")
             f.write("</tr>")
 
-
-        #print("write_mcdelta_html_from_json_data")
-        #print()
         mcdelta_03_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
         delta_json = open(mcdelta_03_json_dev_file)
         data = json.load(delta_json)
         delta_json.close()
-        #print(data)
 
         dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev4.html"
-        #print("")
 
         try:
             os.remove( dev2_html_file )
