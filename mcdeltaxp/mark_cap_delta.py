@@ -1,3 +1,4 @@
+from operator import truediv
 import requests
 import json
 import datetime
@@ -328,11 +329,25 @@ class MCDelta():
                         print("junk")
             f.write("</tr>")
 
-        def write_row(data,f):
-            print("write row")
+        def write_header_row(data,f):
+            f.write("<tr>")
             for key,value in data.items():
                 print(key)
-                f.write("<td>")
+                f.write("<th style=\"left: 0px;\">")
+                f.write(key)
+                f.write("</th>")
+                for element in data[key]:
+                    print(element)
+                    f.write("<th>")
+                    f.write(element)
+                    f.write("</th>")
+            f.write("</tr>")
+
+        def write_row(data,f):
+            f.write("<tr>")
+            for key,value in data.items():
+                print(key)
+                f.write("<td style=\"left: 0px;\">")
                 f.write(key)
                 f.write("</td>")
                 for element in data[key]:
@@ -340,7 +355,7 @@ class MCDelta():
                     f.write("<td>")
                     f.write(element)
                     f.write("</td>")
-
+            f.write("</tr>")
 
 
         print("write_mcdelta_html_from_json_data")
@@ -359,7 +374,6 @@ class MCDelta():
         except:
             print("file does not exist")
         f = open(dev2_html_file, "w")
-        '''
         f.write("<!DOCTYPE html>")
         f.write("<html ng-app=\"plunker\">")
         f.write("  <head>")
@@ -391,49 +405,63 @@ class MCDelta():
         f.write("")
         f.write("")
         '''
+        f.write("<!DOCTYPE html>")
+        f.write("<html ng-app=\"plunker\">")
+        f.write("  <head>")
+        f.write("    <meta charset=\"utf-8\" />")
+        f.write("    <title>MC Delta - Market Cap Changes</title>")
+        f.write("    <script>document.write('<base href=\"' + document.location + '\" />');</script>")
+        f.write("    <link rel=\"stylesheet\" href=\"style.css\" />")
+        f.write("    <script data-require=\"angular.js@1.3.x\" src=\"https://code.angularjs.org/1.3.20/angular.js\" data-semver=\"1.3.20\"></script>")
+        f.write("    <script data-require=\"jquery@3.1.1\" data-semver=\"3.1.1\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>")
+        f.write("    <script src=\"app.js\"></script>")
+        f.write("    <script>")
+        f.write("      $(document).ready(function() {")
+        f.write("          $('tbody').scroll(function(e) {")
+        f.write("            $('thead').css(\"left\", -$(\"tbody\").scrollLeft()); //fix the thead relative to the body scrolling")
+        f.write("            $('thead th:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first cell of the header")
+        f.write("            $('tbody td:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first column of tdbody")
+        f.write("          });")
+        f.write("      });")
+        f.write("    </script>")
+        f.write("  </head>")
+        f.write("  <body ng-controller=\"MainCtrl\">")
+        f.write("  What's up doc?!")
+        f.write("")
+        f.write("")
+        '''
         mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
         delta_json = open(mcdelta_json_dev_file)
         data = json.load(delta_json)
         delta_json.close()
-
-        print(type(data["mcdelta"]))
-
+        #print(type(data["mcdelta"]))
         mcdelta_list = data["mcdelta"]
-
-        # it is known that this is a list, so the if check is unnecessary
-        #if type(mcdelta_list) == type(list()): 
-        '''
+        header_row = True
+        
+        f.write("<table>")
         for val in mcdelta_list:
-            if type(val) == type(str()):
-                pass
-            elif type(val) == type(list()):
-                pass
-            elif type(val) == type(dict()):
-                print("row list")
-                write_row(val,f)
+            if header_row:
+                f.write("<thead>")
+                write_header_row(val,f)
+                header_row = False
+                f.write("</thead>")
+                f.write("<tbody>")
             else:
-                pass
-        '''
+                write_row(val,f)
+        f.write("</tbody>")
+        f.write("</table>")
 
-        for val in mcdelta_list:
-            write_row(val,f)
-
-        print("")       
-        print("so there needs to be a matrix transformation")       
-        print("creating an html table works easier on rows")       
-        print("")       
-        print("")
-        '''       
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("")
-        f.write("")
+        #print("")       
+        #print("so there needs to be a matrix transformation")       
+        #print("creating an html table works easier on rows")       
+        #print("")       
+        #print("")
+        #'''       
         f.write("")
         f.write("")
         f.write("  </body>")
         f.write("</html>")
-        '''
+        #'''
         f.close()
 
 
