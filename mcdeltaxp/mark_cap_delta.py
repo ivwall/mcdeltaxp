@@ -358,6 +358,11 @@ class MCDelta():
                         print("junk")
             f.write("</tr>")
 
+        def write_row(data,f):
+            print("write row")
+            print(data)
+
+
         print("write_mcdelta_html_from_json_data")
         print()
         mcdelta_03_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
@@ -413,9 +418,20 @@ class MCDelta():
 
         print(type(data["mcdelta"]))
 
-        func2(data,f)
-        #func2(data["mcdelta"],f)
-        #func3(data["mcdelta"],f)
+        mcdelta_list = data["mcdelta"]
+
+        # it is known that this is a list, so the if check is unnecessary
+        #if type(mcdelta_list) == type(list()): 
+        for val in mcdelta_list:
+            if type(val) == type(str()):
+                pass
+            elif type(val) == type(list()):
+                pass
+            elif type(val) == type(dict()):
+                print("row list")
+                write_row(val,f)
+            else:
+                pass
 
         print("")       
         print("so there needs to be a matrix transformation")       
