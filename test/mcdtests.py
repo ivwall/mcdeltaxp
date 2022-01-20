@@ -46,10 +46,13 @@ class TDDmcdelta(unittest.TestCase):
     def test15_read_update_write_json(self):
         MCDelta.ruwb_json()
 
-    def test16_write_mcdelta_html_from_json_data(self):
-        MCDelta.write_mcdelta_html_from_json_data()
+    def test16_write_mcdelta_html_from_03json_data(self):
+        MCDelta.write_mcdelta_html_from_03json_data()
 
-    def test17_zip_n_deploy(self):
+    def test17_write_mcdelta_html_from_04json_data(self):
+        MCDelta.write_mcdelta_html_from_04json_data()
+
+    def test20_zip_n_deploy(self):
         print("")
         subprocess.run(["ls", "-l"])
         print("")
