@@ -1,0 +1,15 @@
+{"mcdelta":[{"dates":["010122.1","010222.3","011922.1","011922.2","011922.3","011922.4"]},
+            {"1":["BTC","BTC","BTC","BTC","BTC","BTC"]},
+            {"2":["ETH","ETH","ETH","ETH","ETH","ETH"]},
+            {"3":["BNB","BNB","BNB","BNB","BNB","BNB"]},
+            {"4":["USDT","USDT","USDT","USDT","USDT","USDT"]},
+            {"5":["ADA","ADA","USDC","USDC","USDC","USDC"]},
+            {"6":["USDC","USDC","ADA","ADA","ADA","ADA"]},
+            {"7":["SOL","SOL","SOL","SOL","SOL","SOL"]},
+            {"8":["XRP","XRP","XRP","XRP","XRP","XRP"]},
+            {"9":["LUNA","LUNA","LUNA","LUNA","LUNA","LUNA"]},
+            {"10":["DOT","DOT","DOT","DOT","DOT","DOT"]},
+            {"11":["DOGE","DOGE","DOGE","DOGE","DOGE","DOGE"]},
+            {"12":["AVAX","AVAX","AVAX","AVAX","AVAX","AVAX"]}
+           ]
+}
