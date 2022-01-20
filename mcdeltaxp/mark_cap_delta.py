@@ -282,23 +282,24 @@ class MCDelta():
 
         ''''''
         def walk_through_cell_attribute_list(data,f):
-            print("walk_through_cell_attribute_list ", type(data), data)
+            #print("walk_through_cell_attribute_list ", type(data), data)
             for x in data:
-                print(x)
-                print(x["delta"])
-                print(x["var1"])
+                #print(x)
+                #print(x["delta"])
+                #print(x["var1"])
                 if x["delta"] == "+1":
-                    print("+1")
-                    f.write("<td style=\"background-color:#e99d9b; text-align:center;\">")
+                    #print("+1")
+                    f.write("<td style=\"background-color:#a8d08d; text-align:center;\">")
                 elif x["delta"] == "-1":
-                    print("-1")
+                    #print("-1")
+                    f.write("<td style=\"background-color:#e99d9b; text-align:center;\">")
 
         def parse_cell_item(data,f):
-            print("parse cell item ", type(data), data)
+            #print("parse cell item ", type(data), data)
             for key,value in data.items():
                 cellString = key
-                print("key ",cellString)
-                print("value type ",type(value), value)
+                #print("key ",cellString)
+                #print("value type ",type(value), value)
                 if type(value) == type(list()):
                     walk_through_cell_attribute_list(value,f)
                 f.write(cellString)
@@ -312,14 +313,13 @@ class MCDelta():
                 f.write(key)
                 f.write("</td>")
                 for element in data[key]:
-                    print("element type ",type(element),element)
+                    #print("element type ",type(element),element)
                     if type(element) == type(str()):
                         f.write("<td style=\"background-color:#a3cced; text-align:center;\">")
                         f.write(element)
                         f.write("</td>")
                     else:
                         parse_cell_item(element,f)
-                        pass
             f.write("</tr>")
 
         dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev4.html"

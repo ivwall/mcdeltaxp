@@ -3,13 +3,13 @@
             {"2":["ETH","ETH","ETH","ETH","ETH","ETH"]},
             {"3":["BNB","BNB","BNB","BNB","BNB","BNB"]},
             {"4":["USDT","USDT","USDT","USDT","USDT","USDT"]},
-            {"5":["ADA","ADA","USDC","USDC","USDC","USDC"]},
-            {"6":["USDC","USDC","ADA","ADA","ADA","ADA"]},
+            {"5":["ADA","ADA",{"USDC":[{"delta":"+1","var1":"tbd","var2":"tbd"}]},"USDC","USDC","USDC"]},
+            {"6":["USDC","USDC",{"ADA":[{"delta":"-1","var1":"tbd","var2":"tbd"}]},"ADA","ADA","ADA"]},
             {"7":["SOL","SOL","SOL","SOL","SOL","SOL"]},
             {"8":["XRP","XRP","XRP","XRP","XRP","XRP"]},
             {"9":["LUNA","LUNA","LUNA","LUNA","LUNA","LUNA"]},
             {"10":["DOT","DOT","DOT","DOT","DOT","DOT"]},
             {"11":["DOGE","DOGE","DOGE","DOGE","DOGE","DOGE"]},
-            {"12":["AVAX","AVAX","AVAX","AVAX","AVAX",{"AVAX":[{"delta":"+1","var1":"tbd"}]}]}
+            {"12":["AVAX","AVAX","AVAX","AVAX","AVAX",{"AVAX":[{"delta":"+1","var1":"tbd","var2":"tbd"}]}]}
            ]
 }
