@@ -1,5 +1,4 @@
 from operator import truediv
-import this
 import requests
 import json
 import datetime
@@ -40,40 +39,40 @@ class MCDelta():
 
     def create_file_with_timestamp_name():
         try:
-            print(os.getcwd())
+            #print(os.getcwd())
             dirpath = os.getcwd()
-            print("current directory is : " + dirpath)
+            #print("current directory is : " + dirpath)
             foldername = os.path.basename(dirpath)
-            print("Directory name is : " + foldername)
+            #print("Directory name is : " + foldername)
             scriptpath = os.path.realpath(__file__)
-            print("Script path is : " + scriptpath)
+            #print("Script path is : " + scriptpath)
             os.chdir('../mcdeltaxp/data')
-            print(os.getcwd())
+            #print(os.getcwd())
 
             path = os.getcwd()
-            print(type(path))
+            #print(type(path))
 
             ct = datetime.datetime.now()
-            print("current time:-", ct)
+            #print("current time:-", ct)
             ts = ct.timestamp()
-            print("timestamp:-", ts)
-            print(type(ts))
+            #print("timestamp:-", ts)
+            #print(type(ts))
             ts_string = str(ts)
-            print("time stamp string ", ts_string)
+            #print("time stamp string ", ts_string)
 
             pnn = path + os.path.sep + ts_string
-            print( pnn ) 
+            #print( pnn ) 
 
-            listOfFiles = os.listdir('.')
-            for entry in listOfFiles:
-                print (entry)
+            #listOfFiles = os.listdir('.')
+            #for entry in listOfFiles:
+            #    print (entry)
             #https://stackabuse.com/python-list-files-in-a-directory/
         except:
             print("error in create_file_with_timestamp_name")
 
     def writejson_to_timestamp_file():
         try:
-            #os.chdir('../mcdeltaxp/data')
+            os.chdir('../mcdeltaxp/data')
             # set in previous method call, most intreguing
             path_2_data = os.getcwd()
 
@@ -81,7 +80,12 @@ class MCDelta():
             ts = ct.timestamp()
             ts_string = str(ts)
             pnn = path_2_data + os.path.sep + ts_string
-            print( pnn ) 
+            #print( pnn )
+
+            date_time_str =  ct.strftime("%Y%m%d%H%M%S")
+
+            print ("Current date and time : ")
+            print (date_time_str)
 
             response = requests.get(cdata_site)
             text = json.dumps(response.json(), sort_keys=True,indent=4)
@@ -97,16 +101,16 @@ class MCDelta():
 
     def list_data_files():
         listOfFiles = os.listdir('.')
-        for entry in listOfFiles:
-            print (entry)
-        print(type(listOfFiles))
-        print("number of files is ",len(listOfFiles))
+        #for entry in listOfFiles:
+        #    print (entry)
+        #print(type(listOfFiles))
+        #print("number of files is ",len(listOfFiles))
 
         more_than_10000 = True
         while more_than_10000:            
             if len(listOfFiles) > 10000:
                 listOfFiles = os.listdir('.')
-                print(listOfFiles[0])
+                #print(listOfFiles[0])
                 file_number_1 = listOfFiles[0]
                 file_number_2 = listOfFiles[1]
                 file_number_3 = listOfFiles[2]
@@ -122,31 +126,31 @@ class MCDelta():
 
 
     def read_last_data_file():
-        print("read_last_data_file()")
+        #print("read_last_data_file()")
         listOfFiles = os.listdir('.')
         file_list_len = len(listOfFiles)        
         last_file = listOfFiles[ file_list_len - 1]
         path_2_data = os.getcwd()
         pnn = path_2_data + os.path.sep + last_file
-        print( pnn )
+        #print( pnn )
         f = open(pnn)
         data = json.load(f)
         f.close()
         text = json.dumps(data, sort_keys=True,indent=4)
-        print(text)
+        #print(text)
         text = json.dumps(data["coins"][0], sort_keys=True,indent=4)
-        print(text)
-        print(data["coins"][0])
-        print(data["coins"][0]["symbol"])
-        print(data["coins"][0]["rank"])
+        #print(text)
+        #print(data["coins"][0])
+        #print(data["coins"][0]["symbol"])
+        #print(data["coins"][0]["rank"])
 
-        print(type(data["coins"]))
+        #print(type(data["coins"]))
         number_of_coins = len(data["coins"])
-        print(number_of_coins)
+        #print(number_of_coins)
         for s in range(0,number_of_coins):
             symbol = data["coins"][s]["symbol"]
             rank = data["coins"][s]["rank"]
-            print("  "+str(rank)+" "+symbol)
+            #print("  "+str(rank)+" "+symbol)
 
     def develop_mcdelta_json():
         mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta.json"
@@ -402,11 +406,11 @@ class MCDelta():
             with open(mcdelta_json_dev_file) as fp:
                 mcdelta_obj = json.load(fp)
 
-        print(mcdelta_obj)
+        #print(mcdelta_obj)
         obj = mcdelta_obj["mcdelta"]
-        print("type ",type(obj), obj)
+        #print("type ",type(obj), obj)
         mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
-        print(mcdelta_obj)
+        #print(mcdelta_obj)
 
         with open(mcdelta_json_dev_file, 'w') as json_file:
             #json.dump(mcdelta_obj, json_file, 
@@ -429,9 +433,9 @@ class MCDelta():
             with open(mcdelta_json_dev_file) as fp:
                 mcdelta_obj = json.load(fp)
 
-        print(mcdelta_obj)
+        #print(mcdelta_obj)
         obj = mcdelta_obj["mcdelta"]
-        print("type ",type(obj), obj)
+        #print("type ",type(obj), obj)
 
         #---------------------------------------------------------------------------------
 
@@ -440,43 +444,43 @@ class MCDelta():
         last_file = listOfFiles[ file_list_len - 1]
         path_2_data = os.getcwd()
         pnn = path_2_data + os.path.sep + last_file
-        print( pnn )
+        #print( pnn )
         f = open(pnn)
         data = json.load(f)
         f.close()
         text = json.dumps(data, sort_keys=True,indent=4)
-        print(text)
+        #print(text)
         text = json.dumps(data["coins"][0], sort_keys=True,indent=4)
-        print(text)
-        print(data["coins"][0])
-        print(data["coins"][0]["symbol"])
-        print(data["coins"][0]["rank"])
+        #print(text)
+        #print(data["coins"][0])
+        #print(data["coins"][0]["symbol"])
+        #print(data["coins"][0]["rank"])
 
         if type(mcdelta_obj["mcdelta"]) == type(list()):
             mcdelta_length = len(mcdelta_obj["mcdelta"])
-            print("mcdelt_length", mcdelta_length)
+            #print("mcdelt_length", mcdelta_length)
             if mcdelta_length == 0:
                 mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
-                print("insert dates row, row 0")
+                #print("insert dates row, row 0")
 
         if type(mcdelta_obj["mcdelta"]) == type(list()):
             mcdelta_length = len(mcdelta_obj["mcdelta"])
-            print("mcdelt_length", mcdelta_length)
+            #print("mcdelt_length", mcdelta_length)
             if mcdelta_length == 1:
-                print(type(data["coins"]))
+                #print(type(data["coins"]))
                 number_of_coins = len(data["coins"])
-                print(number_of_coins)
+                #print(number_of_coins)
                 for s in range(0,number_of_coins):
                     x = s + 1
                     symbol = data["coins"][s]["symbol"]
                     rank = data["coins"][s]["rank"]
-                    print("  "+str(rank)+" "+symbol)
+                    #print("  "+str(rank)+" "+symbol)
                     mcdelta_obj["mcdelta"].insert(x,{str(x):[]})
                 print("contains dates row")
                 print("               row 1")
 
-        print(mcdelta_obj["mcdelta"][0])
-        print(mcdelta_obj)
+        #print(mcdelta_obj["mcdelta"][0])
+        #print(mcdelta_obj)
 
         with open(mcdelta_json_dev_file, 'w') as json_file:
             json.dump(mcdelta_obj, json_file)

@@ -32,7 +32,8 @@ class TDDmcdelta(unittest.TestCase):
         #MCDelta.displaytimestamp()
 
     def test07_create_file_with_timestamp_name(self):
-        MCDelta.create_file_with_timestamp_name()
+        pass
+        #MCDelta.create_file_with_timestamp_name()
 
     def test08_writejson_to_timestamp_file(self):
         MCDelta.writejson_to_timestamp_file()
@@ -44,7 +45,8 @@ class TDDmcdelta(unittest.TestCase):
         MCDelta.read_last_data_file()
     
     def test13_develop_mcdelta_json(self):
-        MCDelta.develop_mcdelta_json()
+        pass
+        #MCDelta.develop_mcdelta_json()
 
     def test15_read_update_write_json(self):
         MCDelta.ruwb_json()
@@ -61,35 +63,35 @@ class TDDmcdelta(unittest.TestCase):
     def test19_update_mcdelta_0x_from_raw_data(self):
         MCDelta.update_mcdelta_0x_from_raw_data()
 
-    def test20_zip_n_deploy(self):
-        print("")
+    def test30_zip_n_deploy(self):
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
+        #print("")
         subprocess.run(["sudo", "su -"])
-        print("")
-        print(os.getcwd())
-        print("")
+        #print("")
+        #print(os.getcwd())
+        #print("")
         os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp')
-        print("")
-        print(os.getcwd())
-        print("")
+        #print("")
+        #print(os.getcwd())
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
+        #print("")
         subprocess.run(["jar", "cvf", "mcdelta.war", "mcdelta"])
-        print("")
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
-        print("")
+        #print("")
+        #print("")
         subprocess.run(["sudo", "rm", "/opt/tomcat/latest/webapps/mcdelta.war"])
-        print("")
+        #print("")
         subprocess.run(["sudo", "cp", "mcdelta.war", "/opt/tomcat/latest/webapps/"])
-        print("")
-        subprocess.run(["ls", "-l"])
+        #print("")
+        #subprocess.run(["ls", "-l"])
         print("")
         subprocess.run(["rm", "mcdelta.war"])
-        print("")
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
+        #print("")
         print("      zip n deploy ")
 
 if __name__ == '__main__':
