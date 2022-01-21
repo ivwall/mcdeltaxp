@@ -1,4 +1,5 @@
 from operator import truediv
+import this
 import requests
 import json
 import datetime
@@ -11,30 +12,30 @@ class MCDelta():
 
     def get_coin_stats():
         response = requests.get(cdata_site)
-        print(type(response))
+        #print(type(response))
         text = json.dumps(response.json(), sort_keys=True,indent=4)
-        print(text)
-        print("response.status_code ",response.status_code)
+        #print(text)
+        #print("response.status_code ",response.status_code)
         return response
 
     def pull_coin_n_market_cap():
         response = requests.get(cdata_site)
-        print(type(response))
+        #print(type(response))
         text = json.dumps(response.json(), sort_keys=True,indent=4)
-        print(text)
-        print("response.status_code ",response.status_code)
-        print("walk the json tree, pull coin n cap")
+        #print(text)
+        #print("response.status_code ",response.status_code)
+        #print("walk the json tree, pull coin n cap")
 
     def displaytimestamp():
         ct = datetime.datetime.now()
-        print("current time:-", ct)
+        #print("current time:-", ct)
         ts = ct.timestamp()
-        print("timestamp:-", ts)
-        print(type(ts))
+        #print("timestamp:-", ts)
+        #print(type(ts))
         ts_string = str(ts)
-        print("time stamp string ", ts_string)
+        #print("time stamp string ", ts_string)
         ts_float = float(ts_string)
-        print(ts_float)
+        #print(ts_float)
 
 
     def create_file_with_timestamp_name():
@@ -149,15 +150,15 @@ class MCDelta():
 
     def develop_mcdelta_json():
         mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta.json"
-        print("")
-        print(" working file: " + mcdelta_json_dev_file)
-        print("")
-        print("")
+        #print("")
+        #print(" working file: " + mcdelta_json_dev_file)
+        #print("")
+        #print("")
         f = open(mcdelta_json_dev_file)
         data = json.load(f)
         f.close()
         text = json.dumps(data, sort_keys=True,indent=4)
-        print(text)
+        #print(text)
 
 
     def ruwb_json():
@@ -167,13 +168,13 @@ class MCDelta():
         listOfFiles = os.listdir('.')
         for entry in listOfFiles:
             timestamp = date.fromtimestamp(float(entry))
-            print("Date =", timestamp)
-            print (entry)
+            #print("Date =", timestamp)
+            #print (entry)
         mcdelta_03_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
         delta_json = open(mcdelta_03_json_dev_file)
         data = json.load(delta_json)
         delta_json.close()
-        print(data)
+        #print(data)
 
 
     def write_mcdelta_html_from_03json_data():
@@ -327,7 +328,8 @@ class MCDelta():
         try:
             os.remove( dev2_html_file )
         except:
-            print("file does not exist")
+            #print("file does not exist")
+            pass
 
         f = open(dev2_html_file, "w")
         f.write("<!DOCTYPE html>\n")
@@ -384,3 +386,97 @@ class MCDelta():
         f.write("  </body>")
         f.write("</html>")
         f.close()
+
+    def generate_or_update_mcdelta_0x_json():
+        #https://howtodoinjava.com/python/json/append-json-to-file/
+        print("generate_or_update_mcdelta_0x_json")
+
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_05.json"
+        mcdelta_obj = {}
+
+        if os.path.isfile(mcdelta_json_dev_file) is False:
+            mcdelta_obj.update({
+                "mcdelta":[]
+            })
+        else:
+            with open(mcdelta_json_dev_file) as fp:
+                mcdelta_obj = json.load(fp)
+
+        print(mcdelta_obj)
+        obj = mcdelta_obj["mcdelta"]
+        print("type ",type(obj), obj)
+        mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
+        print(mcdelta_obj)
+
+        with open(mcdelta_json_dev_file, 'w') as json_file:
+            #json.dump(mcdelta_obj, json_file, 
+            #    indent=2,  
+            #    separators=(',',': '))
+            json.dump(mcdelta_obj, json_file)
+            
+    def update_mcdelta_0x_from_raw_data():
+        print("update_mcdelta_0x_from_raw_data()")
+        #https://howtodoinjava.com/python/json/append-json-to-file/
+
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_06.json"
+        mcdelta_obj = {}
+
+        if os.path.isfile(mcdelta_json_dev_file) is False:
+            mcdelta_obj.update({
+                "mcdelta":[]
+            })
+        else:
+            with open(mcdelta_json_dev_file) as fp:
+                mcdelta_obj = json.load(fp)
+
+        print(mcdelta_obj)
+        obj = mcdelta_obj["mcdelta"]
+        print("type ",type(obj), obj)
+
+        #---------------------------------------------------------------------------------
+
+        listOfFiles = os.listdir('.')
+        file_list_len = len(listOfFiles)        
+        last_file = listOfFiles[ file_list_len - 1]
+        path_2_data = os.getcwd()
+        pnn = path_2_data + os.path.sep + last_file
+        print( pnn )
+        f = open(pnn)
+        data = json.load(f)
+        f.close()
+        text = json.dumps(data, sort_keys=True,indent=4)
+        print(text)
+        text = json.dumps(data["coins"][0], sort_keys=True,indent=4)
+        print(text)
+        print(data["coins"][0])
+        print(data["coins"][0]["symbol"])
+        print(data["coins"][0]["rank"])
+
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            print("mcdelt_length", mcdelta_length)
+            if mcdelta_length == 0:
+                mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
+                print("insert dates row, row 0")
+
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            print("mcdelt_length", mcdelta_length)
+            if mcdelta_length == 1:
+                print(type(data["coins"]))
+                number_of_coins = len(data["coins"])
+                print(number_of_coins)
+                for s in range(0,number_of_coins):
+                    x = s + 1
+                    symbol = data["coins"][s]["symbol"]
+                    rank = data["coins"][s]["rank"]
+                    print("  "+str(rank)+" "+symbol)
+                    mcdelta_obj["mcdelta"].insert(x,{str(x):[]})
+                print("contains dates row")
+                print("               row 1")
+
+        print(mcdelta_obj["mcdelta"][0])
+        print(mcdelta_obj)
+
+        with open(mcdelta_json_dev_file, 'w') as json_file:
+            json.dump(mcdelta_obj, json_file)

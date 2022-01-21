@@ -20,13 +20,16 @@ from mcdeltaxp.mark_cap_delta import MCDelta
 class TDDmcdelta(unittest.TestCase):
 
     def test04_pull_data(self):
-        MCDelta.get_coin_stats()
+        pass
+        #MCDelta.get_coin_stats()
 
     def test05_walk_the_tree_pull_coin_n_cap(self):
-        MCDelta.pull_coin_n_market_cap()
+        pass
+        #MCDelta.pull_coin_n_market_cap()
 
     def test06_timestamp(self):
-        MCDelta.displaytimestamp()
+        pass
+        #MCDelta.displaytimestamp()
 
     def test07_create_file_with_timestamp_name(self):
         MCDelta.create_file_with_timestamp_name()
@@ -51,6 +54,12 @@ class TDDmcdelta(unittest.TestCase):
 
     def test17_write_mcdelta_html_from_04json_data(self):
         MCDelta.write_mcdelta_html_from_04json_data()
+
+    def test18_generate_or_update_mcdelta_0x_json(self):
+        MCDelta.generate_or_update_mcdelta_0x_json()
+
+    def test19_update_mcdelta_0x_from_raw_data(self):
+        MCDelta.update_mcdelta_0x_from_raw_data()
 
     def test20_zip_n_deploy(self):
         print("")
