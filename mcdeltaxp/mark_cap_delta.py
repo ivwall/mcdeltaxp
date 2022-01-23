@@ -9,70 +9,31 @@ cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
 class MCDelta():
 
-    def get_coin_stats():
-        response = requests.get(cdata_site)
-        #print(type(response))
-        text = json.dumps(response.json(), sort_keys=True,indent=4)
-        #print(text)
-        #print("response.status_code ",response.status_code)
-        return response
-
-    def pull_coin_n_market_cap():
-        response = requests.get(cdata_site)
-        #print(type(response))
-        text = json.dumps(response.json(), sort_keys=True,indent=4)
-        #print(text)
-        #print("response.status_code ",response.status_code)
-        #print("walk the json tree, pull coin n cap")
-
-    def displaytimestamp():
-        ct = datetime.datetime.now()
-        #print("current time:-", ct)
-        ts = ct.timestamp()
-        #print("timestamp:-", ts)
-        #print(type(ts))
-        ts_string = str(ts)
-        #print("time stamp string ", ts_string)
-        ts_float = float(ts_string)
-        #print(ts_float)
-
-
-    def create_file_with_timestamp_name():
+    def writejson_to_timestamp_file_v1_datetime_str():
         try:
-            #print(os.getcwd())
-            dirpath = os.getcwd()
-            #print("current directory is : " + dirpath)
-            foldername = os.path.basename(dirpath)
-            #print("Directory name is : " + foldername)
-            scriptpath = os.path.realpath(__file__)
-            #print("Script path is : " + scriptpath)
-            os.chdir('../mcdeltaxp/data')
-            #print(os.getcwd())
-
-            path = os.getcwd()
-            #print(type(path))
+            os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/00-raw-dev-data')
+            # set in previous method call, most intreguing
+            path_2_data = os.getcwd()
 
             ct = datetime.datetime.now()
-            #print("current time:-", ct)
             ts = ct.timestamp()
-            #print("timestamp:-", ts)
-            #print(type(ts))
             ts_string = str(ts)
-            #print("time stamp string ", ts_string)
+            pnn = path_2_data + os.path.sep + ts_string
+            print( pnn ) 
 
-            pnn = path + os.path.sep + ts_string
-            #print( pnn ) 
-
-            #listOfFiles = os.listdir('.')
-            #for entry in listOfFiles:
-            #    print (entry)
-            #https://stackabuse.com/python-list-files-in-a-directory/
+            response = requests.get(cdata_site)
+            text = json.dumps(response.json(), sort_keys=True,indent=4)
+            data = json.loads(text)
+            file = open( pnn, "w")
+            json.dump(data, file)
+            file.close()
         except:
-            print("error in create_file_with_timestamp_name")
+            print("ERROR writejson_to_timestamp_file")
 
     def writejson_to_timestamp_file():
+        #https://stackabuse.com/python-list-files-in-a-directory/
         try:
-            os.chdir('../mcdeltaxp/data')
+            os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/data')
             # set in previous method call, most intreguing
             path_2_data = os.getcwd()
 
@@ -87,6 +48,32 @@ class MCDelta():
             print ("Current date and time : ")
             print (date_time_str)
 
+            #     |   |
+            #  20220121130744
+            #  0123456789
+            #
+            #   s[4:8]
+
+            d1 = date_time_str[3:8]
+            print(d1)
+
+            # get the date, in new format ymmdd
+            # get the list of data files - the last files
+            #print("read_last_data_file()")
+            listOfFiles = os.listdir('.')
+            file_list_len = len(listOfFiles)        
+            last_file = listOfFiles[ file_list_len - 1]
+            path_2_data = os.getcwd()
+            pnn = path_2_data + os.path.sep + last_file
+            print("last file ", pnn)
+
+            # do any of the files contain this "name"
+            with open(d1, 'a'):
+                try:                     # Whatever if file was already existing
+                    os.utime(d1, None)  # => Set current time anyway
+                except OSError:
+                    pass  # File deleted between open() and os.utime() calls            
+
             response = requests.get(cdata_site)
             text = json.dumps(response.json(), sort_keys=True,indent=4)
             data = json.loads(text)
@@ -95,9 +82,6 @@ class MCDelta():
             file.close()
         except:
             print("ERROR writejson_to_timestamp_file")
-
-    def delete_file(name):
-        print( "delete this file "+name )
 
     def list_data_files():
         listOfFiles = os.listdir('.')
@@ -124,6 +108,8 @@ class MCDelta():
             else:
                 more_than_10000 = False
 
+    def writejson_to_new_filename():
+        print("writejson_to_new_filename")
 
     def read_last_data_file():
         #print("read_last_data_file()")
@@ -390,33 +376,6 @@ class MCDelta():
         f.write("  </body>")
         f.write("</html>")
         f.close()
-
-    def generate_or_update_mcdelta_0x_json():
-        #https://howtodoinjava.com/python/json/append-json-to-file/
-        print("generate_or_update_mcdelta_0x_json")
-
-        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_05.json"
-        mcdelta_obj = {}
-
-        if os.path.isfile(mcdelta_json_dev_file) is False:
-            mcdelta_obj.update({
-                "mcdelta":[]
-            })
-        else:
-            with open(mcdelta_json_dev_file) as fp:
-                mcdelta_obj = json.load(fp)
-
-        #print(mcdelta_obj)
-        obj = mcdelta_obj["mcdelta"]
-        #print("type ",type(obj), obj)
-        mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
-        #print(mcdelta_obj)
-
-        with open(mcdelta_json_dev_file, 'w') as json_file:
-            #json.dump(mcdelta_obj, json_file, 
-            #    indent=2,  
-            #    separators=(',',': '))
-            json.dump(mcdelta_obj, json_file)
             
     def update_mcdelta_0x_from_raw_data():
         print("update_mcdelta_0x_from_raw_data()")
@@ -466,11 +425,11 @@ class MCDelta():
         if type(mcdelta_obj["mcdelta"]) == type(list()):
             mcdelta_length = len(mcdelta_obj["mcdelta"])
             #print("mcdelt_length", mcdelta_length)
-            if mcdelta_length == 1:
+            if mcdelta_length == 1:   # <==== meaning, only the header, date, row exists
                 #print(type(data["coins"]))
                 number_of_coins = len(data["coins"])
                 #print(number_of_coins)
-                for s in range(0,number_of_coins):
+                for s in range(0,number_of_coins):  # <=== add a row for each coin
                     x = s + 1
                     symbol = data["coins"][s]["symbol"]
                     rank = data["coins"][s]["rank"]
@@ -484,3 +443,263 @@ class MCDelta():
 
         with open(mcdelta_json_dev_file, 'w') as json_file:
             json.dump(mcdelta_obj, json_file)
+
+
+    def generate_from_scratch_mcdelta_11json_file():
+        print("generate_from_scratch_mcdelta_11json_file --  tbd")
+
+        #---------------------------------------------------------------------------------
+        #
+        # If mcdelta_11.json does not exist then
+        # create the file and update it with the root, json dict(ionary) object, mcdelta
+        # 
+
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        mcdelta_obj = {}
+        if os.path.isfile(mcdelta_json_dev_file) is False:
+            mcdelta_obj.update({
+                "mcdelta":[]
+            })
+        else:
+            with open(mcdelta_json_dev_file) as fp:
+                mcdelta_obj = json.load(fp)
+
+        with open(mcdelta_json_dev_file, 'w') as json_file:
+            json.dump(mcdelta_obj, json_file)
+
+        #--------------------------------------------------------------------------------
+        #
+        # Pull out market data from a reference file  
+        #
+
+        os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')
+        listOfFiles = os.listdir('.')
+        file_list_len = len(listOfFiles)        
+        last_file = listOfFiles[ file_list_len - 1]
+        path_2_data = os.getcwd()
+        pnn = path_2_data + os.path.sep + last_file
+        print( pnn )
+
+        f = open(pnn)
+        crypto_market_data = json.load(f)
+        f.close()
+
+        #--------------------------------------------------------------------------------
+        #
+        # Build the rest of the initial mcdelta table
+        #
+
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            if mcdelta_length == 0:
+                mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
+
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            if mcdelta_length == 1:   # <==== meaning, only the header row exists
+
+                number_of_coins = len(crypto_market_data ["coins"])
+
+                for s in range(0,number_of_coins):  # <=== add a row for each coin
+                    x = s + 1
+                    mcdelta_obj["mcdelta"].insert(x,{str(x):[]})
+
+        #--------------------------------------------------------------------------------
+        #
+        # Write, dump, the file
+        #
+
+        with open(mcdelta_json_dev_file, 'w') as json_file:
+            json.dump(mcdelta_obj, json_file)
+
+    def update_mcdelta_11json_file():
+        print("update_mcdelta_11json_file")
+        #---------------------------------------------------------------------------------
+        #
+        # If mcdelta_11.json does not exist then
+        # create the file and update it with the root, json dict(ionary) object, mcdelta
+        # 
+
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        mcdelta_obj = {}
+        try:
+            with open(mcdelta_json_dev_file) as fp:
+                mcdelta_obj = json.load(fp)
+        except:
+            print("ERROR 01 in update_mcdelta_11json_file")
+
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            print("mcdelta rows = ", mcdelta_length)
+
+        #--------------------------------------------------------------------------------
+        #
+        # Pull out market data from a reference file  
+        #
+
+        os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')
+        listOfFiles = os.listdir('.')
+        file_list_len = len(listOfFiles)        
+        last_file = listOfFiles[ file_list_len - 1]
+        path_2_data = os.getcwd()
+        pnn = path_2_data + os.path.sep + last_file
+        print( pnn )
+
+        f = open(pnn)
+        crypto_market_data = json.load(f)
+        f.close()
+
+        #--------------------------------------------------------------------------------
+        #
+        # The mcdelta date format
+        #
+
+        print("last file name ", last_file)
+        left_str = last_file.split(".")
+        print(left_str)
+        print(left_str[0])
+        date_object = date.fromtimestamp(int(left_str[0]))
+        print(date_object)
+        time_object = date.fromtimestamp(int(left_str[1]))
+        print(time_object)
+
+        print("date_object type ", type(date_object))
+        date_str = str(date_object)
+        print(date_str)
+        date_split = date_str.split('-')
+        print(date_split)
+        print(date_split[1])
+
+        year = "not set"
+        if date_split[0] == "2022":
+            year = "2"
+        elif date_split[0] == "2022":
+            year = "3"
+
+        month = "not set"
+        if date_split[1] == "01":
+            month = "Ja"
+        elif date_split[1] == "02":
+            month = "Fe"
+        elif date_split[1] == "03":
+            month = "Mr"
+        elif date_split[1] == "04":
+            month = "Ap"
+        elif date_split[1] == "05":
+            month = "Ma"
+        elif date_split[1] == "06":
+            month = "Jn"
+        elif date_split[1] == "07":
+            month = "Jl"
+        elif date_split[1] == "08":
+            month = "Au"
+        elif date_split[1] == "09":
+            month = "Sp"
+        elif date_split[1] == "10":
+            month = "Oc"
+        elif date_split[1] == "11":
+            month = "Nv"
+        elif date_split[1] == "12":
+            month = "De"
+
+        print(month)
+        date_header = month + date_split[2] + year
+        print(date_header)
+
+        #--------------------------------------------------------------------------------
+        #
+        # The mcdelta date format, add an item, mcdelta-date, to the reference file.
+        # https://stackoverflow.com/questions/21035762/python-read-json-file-and-modify
+        #
+
+        os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')
+        listOfFiles = os.listdir('.')
+        file_list_len = len(listOfFiles)        
+        last_file = listOfFiles[ file_list_len - 1]
+        path_2_data = os.getcwd()
+        pnn = path_2_data + os.path.sep + last_file
+        print( pnn )
+
+        f = open(pnn)
+        crypto_market_data = json.load(f)
+        f.close()
+
+        with open(pnn) as f:
+            data = json.load(f)
+            data["mcdelta-date"] = date_header
+            json.dump(data, open(pnn, "w"))
+
+        #--------------------------------------------------------------------------------
+        #
+        #
+        #
+
+        # open mcdelta_11.json
+        print("mcdelta-date ", crypto_market_data["mcdelta-date"])
+        mcdelta_date = crypto_market_data["mcdelta-date"]
+        print("             ", mcdelta_date)
+        # open reference file
+        #     get date "mcdelta-date": "Ja232"
+
+        # does mcdelta-date, date value, exist in the header row
+        #   if date-value is not in columnn
+        #   and later than last header
+
+
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            print("mcdelt_length", mcdelta_length)
+            date_list = mcdelta_obj["mcdelta"][0]["dates"]
+            print("date_list ",type(date_list))
+            if type(date_list) == type(list()):
+                print(date_list)
+                date_list_len = len(date_list)
+                print("date list len ", date_list_len)
+                print("insert ", )
+
+
+
+        '''
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            #print("mcdelt_length", mcdelta_length)
+            if mcdelta_length == 0:
+                mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
+                #print("insert dates row, row 0")
+
+        if type(mcdelta_obj["mcdelta"]) == type(list()):
+            mcdelta_length = len(mcdelta_obj["mcdelta"])
+            #print("mcdelt_length", mcdelta_length)
+            if mcdelta_length == 1:   # <==== meaning, only the header, date, row exists
+                #print(type(data["coins"]))
+                number_of_coins = len(data["coins"])
+                #print(number_of_coins)
+                for s in range(0,number_of_coins):  # <=== add a row for each coin
+                    x = s + 1
+                    symbol = data["coins"][s]["symbol"]
+                    rank = data["coins"][s]["rank"]
+                    #print("  "+str(rank)+" "+symbol)
+                    mcdelta_obj["mcdelta"].insert(x,{str(x):[]})
+                print("contains dates row")
+                print("               row 1")
+        '''
+
+        #
+        #      insert date in to header list
+        #      what's the list length
+        #      
+        #      loop through coins to added
+        #
+
+
+
+
+
+
+
+
+
+
+
+
+

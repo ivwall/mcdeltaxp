@@ -19,21 +19,11 @@ from mcdeltaxp.mark_cap_delta import MCDelta
 
 class TDDmcdelta(unittest.TestCase):
 
-    def test04_pull_data(self):
-        pass
-        #MCDelta.get_coin_stats()
+    def test06_writejson_to_timestamp_file_v1_datetime_str(self):
+        MCDelta.writejson_to_timestamp_file_v1_datetime_str()
 
-    def test05_walk_the_tree_pull_coin_n_cap(self):
-        pass
-        #MCDelta.pull_coin_n_market_cap()
-
-    def test06_timestamp(self):
-        pass
-        #MCDelta.displaytimestamp()
-
-    def test07_create_file_with_timestamp_name(self):
-        pass
-        #MCDelta.create_file_with_timestamp_name()
+    def test07_writejson_to_new_filename(self):
+        MCDelta.writejson_to_new_filename()
 
     def test08_writejson_to_timestamp_file(self):
         MCDelta.writejson_to_timestamp_file()
@@ -43,11 +33,13 @@ class TDDmcdelta(unittest.TestCase):
 
     def test10_read_last_data_file(self):
         MCDelta.read_last_data_file()
-    
-    def test13_develop_mcdelta_json(self):
-        pass
-        #MCDelta.develop_mcdelta_json()
 
+    #def test11_generate_from_scratch_mcdelta_11json_file(self):
+    #    MCDelta.generate_from_scratch_mcdelta_11json_file()
+
+    def test12_update_mcdelta_11json_file(self):
+        MCDelta.update_mcdelta_11json_file()
+    
     def test15_read_update_write_json(self):
         MCDelta.ruwb_json()
 
@@ -56,9 +48,6 @@ class TDDmcdelta(unittest.TestCase):
 
     def test17_write_mcdelta_html_from_04json_data(self):
         MCDelta.write_mcdelta_html_from_04json_data()
-
-    def test18_generate_or_update_mcdelta_0x_json(self):
-        MCDelta.generate_or_update_mcdelta_0x_json()
 
     def test19_update_mcdelta_0x_from_raw_data(self):
         MCDelta.update_mcdelta_0x_from_raw_data()
