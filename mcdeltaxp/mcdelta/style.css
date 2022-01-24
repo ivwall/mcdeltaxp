@@ -42,8 +42,10 @@ tbody {
 tbody td {
   background-color: #fff;
   /*min-width: 120px;*/
-  min-width: 65px;
+  /*min-width: 65px;*/
+  max-width: 65px;
   border: 1px solid #222;
+  overflow: hidden;
 }
 
 tbody tr td:nth-child(1) {  /*the first cell in each tr*/
@@ -52,4 +54,5 @@ tbody tr td:nth-child(1) {  /*the first cell in each tr*/
   /*height: 40px;*/
   height: 16px;
   background-color: #99a;
+  overflow: hidden;
 }
