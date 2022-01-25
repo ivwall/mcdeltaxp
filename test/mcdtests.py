@@ -34,8 +34,8 @@ class TDDmcdelta(unittest.TestCase):
     def test10_read_last_data_file(self):
         MCDelta.read_last_data_file()
 
-    #def test11_generate_from_scratch_mcdelta_11json_file(self):
-    #    MCDelta.generate_from_scratch_mcdelta_11json_file()
+    def test11_generate_from_scratch_mcdelta_11json_file(self):
+        MCDelta.generate_from_scratch_mcdelta_11json_file()
 
     def test12_update_mcdelta_11json_file(self):
         MCDelta.update_mcdelta_11json_file()
