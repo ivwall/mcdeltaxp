@@ -1,173 +1,11 @@
 from operator import truediv
-import requests
 import json
-import datetime
 from datetime import date
 import os
 
 cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
 class MCDelta():
-
-    def writejson_to_timestamp_file_v1_datetime_str():
-        try:
-            os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/00-raw-dev-data')
-            # set in previous method call, most intreguing
-            path_2_data = os.getcwd()
-
-            ct = datetime.datetime.now()
-            ts = ct.timestamp()
-            ts_string = str(ts)
-            pnn = path_2_data + os.path.sep + ts_string
-            print( pnn ) 
-
-            response = requests.get(cdata_site)
-            text = json.dumps(response.json(), sort_keys=True,indent=4)
-            data = json.loads(text)
-            file = open( pnn, "w")
-            json.dump(data, file)
-            file.close()
-        except:
-            print("ERROR writejson_to_timestamp_file")
-
-    def writejson_to_timestamp_file():
-        #https://stackabuse.com/python-list-files-in-a-directory/
-        try:
-            os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/data')
-            # set in previous method call, most intreguing
-            path_2_data = os.getcwd()
-
-            ct = datetime.datetime.now()
-            ts = ct.timestamp()
-            ts_string = str(ts)
-            pnn = path_2_data + os.path.sep + ts_string
-            #print( pnn )
-
-            date_time_str =  ct.strftime("%Y%m%d%H%M%S")
-
-            print ("Current date and time : ")
-            print (date_time_str)
-
-            #     |   |
-            #  20220121130744
-            #  0123456789
-            #
-            #   s[4:8]
-
-            d1 = date_time_str[3:8]
-            print(d1)
-
-            # get the date, in new format ymmdd
-            # get the list of data files - the last files
-            #print("read_last_data_file()")
-            listOfFiles = os.listdir('.')
-            file_list_len = len(listOfFiles)        
-            last_file = listOfFiles[ file_list_len - 1]
-            path_2_data = os.getcwd()
-            pnn = path_2_data + os.path.sep + last_file
-            print("last file ", pnn)
-
-            # do any of the files contain this "name"
-            with open(d1, 'a'):
-                try:                     # Whatever if file was already existing
-                    os.utime(d1, None)  # => Set current time anyway
-                except OSError:
-                    pass  # File deleted between open() and os.utime() calls            
-
-            response = requests.get(cdata_site)
-            text = json.dumps(response.json(), sort_keys=True,indent=4)
-            data = json.loads(text)
-            file = open( pnn, "w")
-            json.dump(data, file)
-            file.close()
-        except:
-            print("ERROR writejson_to_timestamp_file")
-
-    def list_data_files():
-        listOfFiles = os.listdir('.')
-        #for entry in listOfFiles:
-        #    print (entry)
-        #print(type(listOfFiles))
-        #print("number of files is ",len(listOfFiles))
-
-        more_than_10000 = True
-        while more_than_10000:            
-            if len(listOfFiles) > 10000:
-                listOfFiles = os.listdir('.')
-                #print(listOfFiles[0])
-                file_number_1 = listOfFiles[0]
-                file_number_2 = listOfFiles[1]
-                file_number_3 = listOfFiles[2]
-                path_2_data = os.getcwd()
-                pnn = path_2_data + os.path.sep + file_number_1
-                os.remove( pnn )
-                pnn = path_2_data + os.path.sep + file_number_2
-                os.remove( pnn )
-                pnn = path_2_data + os.path.sep + file_number_3
-                os.remove( pnn )
-            else:
-                more_than_10000 = False
-
-    def writejson_to_new_filename():
-        print("writejson_to_new_filename")
-
-    def read_last_data_file():
-        #print("read_last_data_file()")
-        listOfFiles = os.listdir('.')
-        file_list_len = len(listOfFiles)        
-        last_file = listOfFiles[ file_list_len - 1]
-        path_2_data = os.getcwd()
-        pnn = path_2_data + os.path.sep + last_file
-        #print( pnn )
-        f = open(pnn)
-        data = json.load(f)
-        f.close()
-        text = json.dumps(data, sort_keys=True,indent=4)
-        #print(text)
-        text = json.dumps(data["coins"][0], sort_keys=True,indent=4)
-        #print(text)
-        #print(data["coins"][0])
-        #print(data["coins"][0]["symbol"])
-        #print(data["coins"][0]["rank"])
-
-        #print(type(data["coins"]))
-        number_of_coins = len(data["coins"])
-        #print(number_of_coins)
-        for s in range(0,number_of_coins):
-            symbol = data["coins"][s]["symbol"]
-            rank = data["coins"][s]["rank"]
-            #print("  "+str(rank)+" "+symbol)
-
-    def develop_mcdelta_json():
-        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta.json"
-        #print("")
-        #print(" working file: " + mcdelta_json_dev_file)
-        #print("")
-        #print("")
-        f = open(mcdelta_json_dev_file)
-        data = json.load(f)
-        f.close()
-        text = json.dumps(data, sort_keys=True,indent=4)
-        #print(text)
-
-
-    def ruwb_json():
-        print("read write update backup json -- TBD")
-        '''
-        data_dir = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/data"
-        os.chdir(data_dir)
-        listOfFiles = os.listdir('.')
-        for entry in listOfFiles:
-            timestamp = date.fromtimestamp(float(entry))
-            #print("Date =", timestamp)
-            #print (entry)
-        mcdelta_03_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
-        delta_json = open(mcdelta_03_json_dev_file)
-        data = json.load(delta_json)
-        delta_json.close()
-        #print(data)
-        '''
-
 
     def write_mcdelta_html_from_03json_data():
         #https://stackoverflow.com/questions/34818782/iterate-through-nested-json-object-and-get-values-with-python
@@ -257,7 +95,6 @@ class MCDelta():
         f.write("  </body>")
         f.write("</html>")
         f.close()
-
 
     def write_mcdelta_html_from_04json_data():
         print("04json work")
@@ -378,7 +215,133 @@ class MCDelta():
         f.write("  </body>")
         f.write("</html>")
         f.close()
-            
+
+
+    def write_mcdelta_html_from_11json_data():
+        print("11json work")
+        def write_header_row(data,f):
+            f.write("<tr>")
+            for key,value in data.items():
+                f.write("<th style=\"left: 0px;\">")
+                f.write(key)
+                f.write("</th>")
+                for element in data[key]:
+                    f.write("<th>")
+                    f.write(element)
+                    f.write("</th>")
+            f.write("</tr>")
+
+        ''''''
+        def walk_through_cell_attribute_list(data,f):
+            #print("walk_through_cell_attribute_list ", type(data), data)
+            for x in data:
+                #print(x)
+                #print(x["delta"])
+                #print(x["var1"])
+                if x["delta"] == "+1":
+                    #print("+1")
+                    f.write("<td style=\"background-color:#a8d08d; text-align:center;\">")
+                elif x["delta"] == "-1":
+                    #print("-1")
+                    f.write("<td style=\"background-color:#e99d9b; text-align:center;\">")
+
+        def parse_cell_item(data,f):
+            #print("parse cell item ", type(data), data)
+            for key,value in data.items():
+                cellString = key
+                #print("key ",cellString)
+                #print("value type ",type(value), value)
+                if type(value) == type(list()):
+                    walk_through_cell_attribute_list(value,f)
+                f.write(cellString)
+                f.write("</td>")
+
+        ''''''
+        def write_row(data,f):
+            f.write("<tr>")
+            for key,value in data.items():
+                f.write("<td style=\" text-align:center; 0px;\">")
+                f.write(key)
+                f.write("</td>")
+                for element in data[key]:
+                    #print("element type ",type(element),element)
+                    if type(element) == type(str()):
+                        f.write("<td style=\"background-color:#a3cced; text-align:center;\">")
+                        f.write(element)
+                        f.write("</td>")
+                    else:
+                        parse_cell_item(element,f)
+            f.write("</tr>")
+
+        dev11_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
+
+        try:
+            os.remove( dev11_html_file )
+        except:
+            #print("file does not exist")
+            pass
+
+        f = open(dev11_html_file, "w")
+        f.write("<!DOCTYPE html>\n")
+        f.write("<html ng-app=\"plunker\">\n")
+        f.write("  <head>\n")
+        f.write("    <meta charset=\"utf-8\" />\n")
+        f.write("    <title>MC Delta - Market Cap Changes</title>\n")
+        f.write("    <script>document.write('<base href=\"' + document.location + '\" />');</script>")
+        f.write("    <link rel=\"stylesheet\" href=\"style.css\" />")
+        f.write("    <script data-require=\"angular.js@1.3.x\" src=\"https://code.angularjs.org/1.3.20/angular.js\" data-semver=\"1.3.20\"></script>")
+        f.write("    <script data-require=\"jquery@3.1.1\" data-semver=\"3.1.1\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>")
+        f.write("    <script src=\"app.js\"></script>")
+        f.write("    <script>")
+        f.write("      $(document).ready(function() {")
+        f.write("  $('tbody').scroll(function(e) { //detect a scroll event on the tbody")
+        f.write("  	/*")
+        f.write("    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement")
+        f.write("    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    ")
+        f.write("    */\n")
+        f.write("    $('thead').css(\"left\", -$(\"tbody\").scrollLeft()); //fix the thead relative to the body scrolling\n")
+        f.write("    $('thead th:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first cell of the header\n")
+        f.write("    $('tbody td:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first column of tdbody\n")
+        f.write("  });")
+        f.write("});")
+        f.write("    </script>")
+        f.write("  </head>")
+        f.write("  <body ng-controller=\"MainCtrl\">")
+        f.write("<br/>")
+        f.write("<br/>")
+        f.write("<br/>")
+        f.write("<br/>")
+        
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        delta_json = open(mcdelta_json_dev_file)
+        data = json.load(delta_json)
+        delta_json.close()
+        mcdelta_list = data["mcdelta"]
+        header_row = True
+        
+        f.write("<table>")
+        for val in mcdelta_list:
+            if header_row:
+                f.write("<thead>")
+                write_header_row(val,f)
+                header_row = False
+                f.write("</thead>")
+                f.write("<tbody>")
+            else:
+                write_row(val,f)
+
+        f.write("</tbody>")
+        f.write("</table>")
+        f.write("")
+        f.write("  </body>")
+        f.write("</html>")
+        f.close()
+
+
+
+
+
+
     def update_mcdelta_0x_from_raw_data():
         print("update_mcdelta_0x_from_raw_data()")
         #https://howtodoinjava.com/python/json/append-json-to-file/
@@ -406,7 +369,7 @@ class MCDelta():
         path_2_data = os.getcwd()
         pnn = path_2_data + os.path.sep + last_file
         #print( pnn )
-        f = open(pnn)
+        f = open(last_file)
         data = json.load(f)
         f.close()
         text = json.dumps(data, sort_keys=True,indent=4)
@@ -448,7 +411,6 @@ class MCDelta():
 
 
     def generate_from_scratch_mcdelta_11json_file():
-        print("generate_from_scratch_mcdelta_11json_file --  tbd")
         #---------------------------------------------------------------------------------
         #
         # If mcdelta_11.json does not exist then
@@ -475,7 +437,7 @@ class MCDelta():
         #
         # Pull out market data from a reference file  
         #
-
+        '''
         os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')
         listOfFiles = os.listdir('.')
         file_list_len = len(listOfFiles)        
@@ -483,8 +445,16 @@ class MCDelta():
         path_2_data = os.getcwd()
         pnn = path_2_data + os.path.sep + last_file
         print( pnn )
+        '''
 
-        f = open(pnn)
+        for file in sorted(os.listdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')):
+            print(">> ",file)
+            last_file = file
+            pnn = file
+
+        last_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
+        print(">>> last file", last_file)
+        f = open(last_file)
         crypto_market_data = json.load(f)
         f.close()
 
@@ -537,35 +507,17 @@ class MCDelta():
         except:
             print("ERROR 01 in update_mcdelta_11json_file")
 
-        '''
-        # these are debug lines that are no longer necessary
-        if type(mcdelta_obj["mcdelta"]) == type(list()):
-            mcdelta_length = len(mcdelta_obj["mcdelta"])
-            print("mcdelta rows = ", mcdelta_length)
-        '''
-
         #--------------------------------------------------------------------------------
         #
         # Pull out market data from the newest reference file  
         #
-        os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')
-        listOfFiles = os.listdir('.')
-        file_list_len = len(listOfFiles) 
-        print("> file list len ", file_list_len)
-        for x in range(0,file_list_len):
-            print("> ",listOfFiles[x])       
-        last_file = listOfFiles[ file_list_len - 1]
-        print("> last file ", last_file)
-        path_2_data = os.getcwd()
-        pnn = path_2_data + os.path.sep + last_file
-        print( "> ",pnn )  #get rid of this
-
+        last_file = ""
         for file in sorted(os.listdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')):
-            print(">> ",file)
             last_file = file
-            pnn = file
 
-        f = open(pnn)
+        dir_and_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
+        print(">>> last file", dir_and_file)
+        f = open(dir_and_file)
         crypto_market_data = json.load(f)
         f.close()
 
@@ -630,31 +582,20 @@ class MCDelta():
         # The mcdelta date format, add an item, mcdelta-date, to the reference file.
         # https://stackoverflow.com/questions/21035762/python-read-json-file-and-modify
         #
-        '''
-        os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')
-        listOfFiles = os.listdir('.')
-        file_list_len = len(listOfFiles)        
-        last_file = listOfFiles[ file_list_len - 1]
-        path_2_data = os.getcwd()
-        pnn = path_2_data + os.path.sep + last_file
-        print( pnn )
-
-        f = open(pnn)
-        crypto_market_data = json.load(f)
-        f.close()
-        '''
-
         # Write the date_header, the column name for this info, into the file.
-        with open(pnn) as f:
+        # with open(pnn) as f:
+        # with open(last_file) as f:
+        print("---->",dir_and_file)
+        with open(dir_and_file) as f:
             data = json.load(f)
             data["mcdelta-date"] = date_header
-            json.dump(data, open(pnn, "w"))
+            json.dump(data, open(dir_and_file, "w"))
             f.close()
 
         #--------------------------------------------------------------------------------
         # open mcdelta_11.json
         #
-
+        crypto_market_data = data
         print("mcdelta-date ", crypto_market_data["mcdelta-date"])
         mcdelta_date = crypto_market_data["mcdelta-date"]
         print("             ", mcdelta_date)
@@ -709,9 +650,6 @@ class MCDelta():
                             mcdelta_obj["mcdelta"][rank][str(rank)].append(symbol)
                     ''''''
                 else: # there's at least one column of data
-
-
-
                     # 
                     # the date index will be used to insert ...
                     # actaully insert is wrong ... date will be appended
@@ -720,36 +658,49 @@ class MCDelta():
                     # print index and crypto str
                     #
                     # print(type(data["coins"]))
-                    '''
-                    number_of_coins = len(crypto_market_data["coins"])
-                    print(number_of_coins)
-                    for s in range(0,number_of_coins):
-                        symbol = data["coins"][s]["symbol"]
-                        rank = data["coins"][s]["rank"]
-
-                        #print("  "+str(s)+"   "+str(rank)+" "+symbol)
-                        sym_len = len(symbol)
-                        if sym_len > 5:
-                            mcdelta_obj["mcdelta"][rank][str(rank)].append("???")
+                    # loop through dates row
+                    print(">>>>>>  loop through dates row")
+                    add_column_data = False
+                    for d in range(0,date_list_len):
+                        print(date_list[d], "  new date ", date_header)
+                        if date_list[d] == date_header:
+                            print("date in header row, DO NOT add")
+                            add_column_data = False
                         else:
-                            mcdelta_obj["mcdelta"][rank][str(rank)].append(symbol)
-                    '''
+                            print("date does not exist, but is this the latest data")
+                            add_column_data = True
+                    print("add_column_data ",add_column_data)
+
+                    if add_column_data:
+                        print("date not in last, presumed latest, append data")
+                        print("mcdelta_obj[mcdelta][0][dates].append(__mcdelta_date__)")
+                        print("   date to append is ", date_header)
+                        print("mcdelta_obj[mcdelta][0][dates].append( date_header )")
+                        mcdelta_obj["mcdelta"][0]["dates"].append(date_header)
+
+                        number_of_coins = len(crypto_market_data["coins"])
+                        print("number_of_coins  ",number_of_coins)
+                        for s in range(0,number_of_coins):
+                            symbol = data["coins"][s]["symbol"]
+                            rank = data["coins"][s]["rank"]
+                            sym_len = len(symbol)
+                            print("  "+str(s)+"   "+str(rank)+" "+symbol+"  sym_len "+str(sym_len))
+                            if sym_len > 5:
+                                mcdelta_obj["mcdelta"][rank][str(rank)].append("???")
+                                print("sym_len > 5 append")
+                            else:
+                                mcdelta_obj["mcdelta"][rank][str(rank)].append(symbol)
+                                print("sym_len WHATEVER append -- why!!!")
+
+                        print("----> post for s in range(0,number_of_coins):")
+
+                    print("RIGHT NOW A 3rd COLUMN BETTER NOT APPEAR")
+                    print("NOW COMPARE THE LAST TWO COLUMNS")
+                    print("ADD COLOR TO THE CHANGES - if any exist")
+
 
             with open(mcdelta_json_dev_file) as f:
                 try:
                     json.dump(mcdelta_obj, open(mcdelta_json_dev_file, "w"))
                 except:
                     print("ERROR writing mcdelta_obj after added ")
-
-
-
-
-
-
-
-
-
-
-
-
-
