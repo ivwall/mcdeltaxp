@@ -1,4 +1,3 @@
-from operator import truediv
 import json
 from datetime import date
 import os
@@ -218,7 +217,7 @@ class MCDelta():
 
 
     def write_mcdelta_html_from_11json_data():
-        print("11json work")
+        print("- 11json work")
         def write_header_row(data,f):
             f.write("<tr>")
             for key,value in data.items():
@@ -337,13 +336,8 @@ class MCDelta():
         f.write("</html>")
         f.close()
 
-
-
-
-
-
     def update_mcdelta_0x_from_raw_data():
-        print("update_mcdelta_0x_from_raw_data()")
+        print("- update_mcdelta_0x_from_raw_data()")
         #https://howtodoinjava.com/python/json/append-json-to-file/
 
         mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_06.json"
@@ -411,6 +405,7 @@ class MCDelta():
 
 
     def generate_from_scratch_mcdelta_11json_file():
+        print("- generate_from_scratch_mcdelta_11json_file()")
         #---------------------------------------------------------------------------------
         #
         # If mcdelta_11.json does not exist then
@@ -437,20 +432,9 @@ class MCDelta():
         #
         # Pull out market data from a reference file  
         #
-        '''
-        os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')
-        listOfFiles = os.listdir('.')
-        file_list_len = len(listOfFiles)        
-        last_file = listOfFiles[ file_list_len - 1 ]
-        path_2_data = os.getcwd()
-        pnn = path_2_data + os.path.sep + last_file
-        print( pnn )
-        '''
-
         for file in sorted(os.listdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')):
             print(">> ",file)
             last_file = file
-            pnn = file
 
         last_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
         print(">>> last file", last_file)
@@ -480,15 +464,13 @@ class MCDelta():
                     mcdelta_obj["mcdelta"].insert(x,{str(x):[]})
 
         #--------------------------------------------------------------------------------
-        #
         # Write, dump, the file
         #
-
         with open(mcdelta_json_dev_file, 'w') as json_file:
             json.dump(mcdelta_obj, json_file)
 
     def update_mcdelta_11json_file():
-        print("update_mcdelta_11json_file")
+        print("- update_mcdelta_11json_file")
         #---------------------------------------------------------------------------------
         #
         # If mcdelta_11.json does not exist then 
@@ -516,7 +498,7 @@ class MCDelta():
             last_file = file
 
         dir_and_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
-        print(">>> last file", dir_and_file)
+        #print(">>> last file", dir_and_file)
         f = open(dir_and_file)
         crypto_market_data = json.load(f)
         f.close()
@@ -525,21 +507,21 @@ class MCDelta():
         #
         # The mcdelta date format
         #
-        print("last file name ", last_file)
+        #print("last file name ", last_file)
         left_str = last_file.split(".")
-        print(left_str)
-        print(left_str[0])
+        #print(left_str)
+        #print(left_str[0])
         date_object = date.fromtimestamp(int(left_str[0]))
-        print(date_object)
+        #print(date_object)
         time_object = date.fromtimestamp(int(left_str[1]))
-        print(time_object)
+        #print(time_object)
 
-        print("date_object type ", type(date_object))
+        #print("date_object type ", type(date_object))
         date_str = str(date_object)
-        print(date_str)
+        #print(date_str)
         date_split = date_str.split('-')
-        print(date_split)
-        print(date_split[1])
+        #print(date_split)
+        #print(date_split[1])
 
         year = "not set"
         if date_split[0] == "2022":
@@ -575,7 +557,7 @@ class MCDelta():
 
         #print(month) #  dead code, remove it
         date_header = month + date_split[2] + year
-        print(date_header)
+        #print(date_header)
 
         #--------------------------------------------------------------------------------
         #
@@ -585,7 +567,7 @@ class MCDelta():
         # Write the date_header, the column name for this info, into the file.
         # with open(pnn) as f:
         # with open(last_file) as f:
-        print("---->",dir_and_file)
+        #print("---->",dir_and_file)
         with open(dir_and_file) as f:
             data = json.load(f)
             data["mcdelta-date"] = date_header
@@ -596,23 +578,23 @@ class MCDelta():
         # open mcdelta_11.json
         #
         crypto_market_data = data
-        print("mcdelta-date ", crypto_market_data["mcdelta-date"])
+        #print("mcdelta-date ", crypto_market_data["mcdelta-date"])
         mcdelta_date = crypto_market_data["mcdelta-date"]
-        print("             ", mcdelta_date)
+        #print("             ", mcdelta_date)
 
         if type(mcdelta_obj["mcdelta"]) == type(list()):
 
             mcdelta_length = len(mcdelta_obj["mcdelta"])
-            print("mcdelta_length", mcdelta_length)
+            #print("mcdelta_length", mcdelta_length)
             date_list = mcdelta_obj["mcdelta"][0]["dates"]
-            print("date_list ",type(date_list))
+            #print("date_list ",type(date_list))
 
             # add column, start with date
             if type(date_list) == type(list()):
 
-                print(date_list)
+                #print(date_list)
                 date_list_len = len(date_list)
-                print("date list len ", date_list_len)
+                #print("date list len ", date_list_len)
 
                 if date_list_len == 0:
 
@@ -623,8 +605,8 @@ class MCDelta():
 
                     try:
                         date_string = mcdelta_obj["mcdelta"][0]["dates"][date_list_len - 1]
-                        print(date_string)
-                        print("date list len "+str(date_list_len)+" => "+date_string)
+                        #print(date_string)
+                        #print("date list len "+str(date_list_len)+" => "+date_string)
                     except:
                         print("ERROR printing last date")
 
@@ -642,7 +624,6 @@ class MCDelta():
                     for s in range(0,number_of_coins):
                         symbol = data["coins"][s]["symbol"]
                         rank = data["coins"][s]["rank"]
-                        #print("  "+str(s)+"   "+str(rank)+" "+symbol)
                         sym_len = len(symbol)
                         if sym_len > 5:
                             mcdelta_obj["mcdelta"][rank][str(rank)].append("???")
@@ -659,23 +640,16 @@ class MCDelta():
                     #
                     # print(type(data["coins"]))
                     # loop through dates row
-                    print(">>>>>>  loop through dates row")
+                    #print(">>>>>>  loop through dates row")
                     add_column_data = False
                     for d in range(0,date_list_len):
-                        print(date_list[d], "  new date ", date_header)
                         if date_list[d] == date_header:
-                            print("date in header row, DO NOT add")
                             add_column_data = False
                         else:
-                            print("date does not exist, but is this the latest data")
                             add_column_data = True
-                    print("add_column_data ",add_column_data)
+                    #print("add_column_data ",add_column_data)
 
                     if add_column_data:
-                        print("date not in last, presumed latest, append data")
-                        print("mcdelta_obj[mcdelta][0][dates].append(__mcdelta_date__)")
-                        print("   date to append is ", date_header)
-                        print("mcdelta_obj[mcdelta][0][dates].append( date_header )")
                         mcdelta_obj["mcdelta"][0]["dates"].append(date_header)
 
                         number_of_coins = len(crypto_market_data["coins"])
@@ -684,23 +658,62 @@ class MCDelta():
                             symbol = data["coins"][s]["symbol"]
                             rank = data["coins"][s]["rank"]
                             sym_len = len(symbol)
-                            print("  "+str(s)+"   "+str(rank)+" "+symbol+"  sym_len "+str(sym_len))
                             if sym_len > 5:
                                 mcdelta_obj["mcdelta"][rank][str(rank)].append("???")
-                                print("sym_len > 5 append")
                             else:
                                 mcdelta_obj["mcdelta"][rank][str(rank)].append(symbol)
-                                print("sym_len WHATEVER append -- why!!!")
 
                         print("----> post for s in range(0,number_of_coins):")
-
-                    print("RIGHT NOW A 3rd COLUMN BETTER NOT APPEAR")
-                    print("NOW COMPARE THE LAST TWO COLUMNS")
-                    print("ADD COLOR TO THE CHANGES - if any exist")
-
 
             with open(mcdelta_json_dev_file) as f:
                 try:
                     json.dump(mcdelta_obj, open(mcdelta_json_dev_file, "w"))
                 except:
                     print("ERROR writing mcdelta_obj after added ")
+
+    def market_cap_delta_scan_and_display_markups():
+        print("- market_cap_delta_scan_and_display_markups()")
+        #---------------------------------------------------------------------------------
+        # If mcdelta_11.json does not exist then 
+        # ( what a pain, python can't call in methods in the class/file
+        #
+        # create the file and update it with the root, json dict(ionary) object, mcdelta
+        # the create did not work
+        # 
+        
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        delta_json = open(mcdelta_json_dev_file)
+        data = json.load(delta_json)
+        delta_json.close()
+        mcdelta_list = data["mcdelta"]
+
+        #print("mcdelta_data is type", type(data))
+        #print("mcdelta_list ",type(mcdelta_list))
+        #print("list_len ", len(mcdelta_list))
+        mcdelta_list_len = len(mcdelta_list)
+        mc_rank = "not set"
+        for mc_rank in range(1,mcdelta_list_len):
+            mc_set = mcdelta_list[mc_rank]
+            #print("row type ", type(mc_set),mc_set.keys())
+            #print(mc_set)
+
+            mc = "not set"
+            for j in mc_set.keys():
+                mc = mc_set[j]
+            mc_len = len(mc)
+            #print("mc lenth ",mc_len)
+            #print(mc[mc_len-1])
+            if mc[mc_len-2] == mc[mc_len-1]:
+                pass
+            else:
+                print("the essence of the work starts here: ", mc_rank, mc[mc_len-2], mc[mc_len-1])
+
+
+
+
+
+
+
+
+
+

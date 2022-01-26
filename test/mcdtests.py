@@ -27,6 +27,9 @@ class TDDmcdelta(unittest.TestCase):
 
     def test03_write_mcdelta_html_from_11json_data(self):
         MCDelta.write_mcdelta_html_from_11json_data()
+
+    def test04_market_cap_delta_display(self):
+        MCDelta.market_cap_delta_scan_and_display_markups()
     
     def test30_zip_n_deploy(self):
         #print("")
