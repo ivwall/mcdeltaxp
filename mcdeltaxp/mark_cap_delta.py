@@ -1,4 +1,7 @@
+from operator import truediv
+import requests
 import json
+import datetime
 from datetime import date
 import os
 
@@ -6,6 +9,29 @@ cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
 class MCDelta():
 
+
+    def writejson_to_timestamp_file():
+        pass
+        try:
+            os.chdir('../mcdeltaxp/00-raw-dev-data')
+            # set in previous method call, most intreguing
+            path_2_data = os.getcwd()
+
+            ct = datetime.datetime.now()
+            ts = ct.timestamp()
+            ts_string = str(ts)
+            pnn = path_2_data + os.path.sep + ts_string
+            print( pnn )
+
+            response = requests.get(cdata_site)
+            text = json.dumps(response.json(), sort_keys=True,indent=4)
+            data = json.loads(text)
+            file = open( pnn, "w")
+            json.dump(data, file)
+            file.close()
+        except:
+            print("ERROR writejson_to_timestamp_file")
+        
     def write_mcdelta_html_from_03json_data():
         #https://stackoverflow.com/questions/34818782/iterate-through-nested-json-object-and-get-values-with-python
         def write_header_row(data,f):
@@ -687,6 +713,40 @@ class MCDelta():
         delta_json.close()
         mcdelta_list = data["mcdelta"]
 
+        def find_the_delta(rank, coin):
+            print("find the delta for ", rank, coin)
+            mcdelta_list_len = len(mcdelta_list)
+            mc_rank = "not set"
+
+            looking = True
+            up_one = 1
+            down_one = 1
+            while looking:
+                looking = False
+                pass
+                #rank + up_one
+
+
+
+
+
+
+        '''
+        #---------------------------------------------------------------------------------
+        # If mcdelta_11.json does not exist then 
+        # ( what a pain, python can't call in methods in the class/file
+        #
+        # create the file and update it with the root, json dict(ionary) object, mcdelta
+        # the create did not work
+        # 
+        
+        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        delta_json = open(mcdelta_json_dev_file)
+        data = json.load(delta_json)
+        delta_json.close()
+        mcdelta_list = data["mcdelta"]
+        '''
+
         #print("mcdelta_data is type", type(data))
         #print("mcdelta_list ",type(mcdelta_list))
         #print("list_len ", len(mcdelta_list))
@@ -706,8 +766,8 @@ class MCDelta():
             if mc[mc_len-2] == mc[mc_len-1]:
                 pass
             else:
-                print("the essence of the work starts here: ", mc_rank, mc[mc_len-2], mc[mc_len-1])
-
+                #print("the essence of the work starts here: ", mc_rank, mc[mc_len-2], mc[mc_len-1])
+                find_the_delta(mc_rank, mc[mc_len-1])
 
 
 

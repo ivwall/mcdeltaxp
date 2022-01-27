@@ -19,16 +19,19 @@ from mcdeltaxp.mark_cap_delta import MCDelta
 
 class TDDmcdelta(unittest.TestCase):
 
-    def test01_generate_from_scratch_mcdelta_11json_file(self):
+    def test01_pull_coinstats_and_store(self):
+        MCDelta.writejson_to_timestamp_file()
+
+    def test12_generate_from_scratch_mcdelta_11json_file(self):
         MCDelta.generate_from_scratch_mcdelta_11json_file()
 
-    def test02_update_mcdelta_11json_file(self):
+    def test13_update_mcdelta_11json_file(self):
         MCDelta.update_mcdelta_11json_file()
 
-    def test03_write_mcdelta_html_from_11json_data(self):
+    def test14_write_mcdelta_html_from_11json_data(self):
         MCDelta.write_mcdelta_html_from_11json_data()
 
-    def test04_market_cap_delta_display(self):
+    def test15_market_cap_delta_display(self):
         MCDelta.market_cap_delta_scan_and_display_markups()
     
     def test30_zip_n_deploy(self):
