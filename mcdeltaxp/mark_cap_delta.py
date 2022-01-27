@@ -4,11 +4,11 @@ import json
 import datetime
 from datetime import date
 import os
+from operator import itemgetter
 
 cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
 class MCDelta():
-
 
     def writejson_to_timestamp_file():
         pass
@@ -631,8 +631,6 @@ class MCDelta():
 
                     try:
                         date_string = mcdelta_obj["mcdelta"][0]["dates"][date_list_len - 1]
-                        #print(date_string)
-                        #print("date list len "+str(date_list_len)+" => "+date_string)
                     except:
                         print("ERROR printing last date")
 
@@ -719,18 +717,60 @@ class MCDelta():
             mc_rank = "not set"
 
             looking = True
+            found = False
             up_one = 1
             down_one = 1
+            delta_rank = "not set"
             while looking:
+                mc_rank_set = mcdelta_list[rank]
+                #print(type(mc_rank_set),mc_rank_set)
+                mc = "not set"
+                for j in mc_rank_set.keys():
+                    mc = mc_rank_set[j]
+                print(len(mc), mc)
+                print("mc[mc_len-1] ",mc[mc_len-1]) # sloppy scope and visibility rules
+                reference_coin = mc[mc_len-1]
+
+                upper_row = rank - up_one
+                mc_rank_set = mcdelta_list[upper_row]
+                for j in mc_rank_set.keys():
+                    mc = mc_rank_set[j]
+                if mc[mc_len-2] == reference_coin:
+                    print(reference_coin, " found")
+                    print("lower set ",mc_rank_set)
+                    print(len(mc), mc)
+                    print("mc[mc_len-2] ",mc[mc_len-2])
+
+                lower_row = rank + down_one
+                mc_rank_set = mcdelta_list[lower_row]
+                for j in mc_rank_set.keys():
+                    mc = mc_rank_set[j]
+                if mc[mc_len-2] == reference_coin:
+                    print(reference_coin, " found")
+                    print("lower set ",mc_rank_set)
+                    print(len(mc), mc)
+                    print("mc[mc_len-2] ",mc[mc_len-2])
+                    found = True
+                    delta_rank = lower_row
+
+                print()
+                lower_row = rank 
                 looking = False
+
+            if delta_rank > rank: # a delta_rank greater than rank then set coin to green
+                #{"AVAX":[{"delta":"+1","var1":"tbd","var2":"tbd"}]}
+                print("found at rank ",delta_rank, ",set to green")
+                #print("finding the cell ",data["mcdelta"][rank][str(rank)](mc_len-1))
+                #data["mcdelta"][rank][str(rank)].replace("UST","{\"AVAX\":[{\"delta\":\"+1\",\"var1\":\"tbd\",\"var\":\"tbd\"}]}")
+                del(data["mcdelta"][rank][str(rank)][mc_len-1])
+                data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"+1","var1":"tbd","var":"tbd"}]})
+                print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
                 pass
-                #rank + up_one
-
-
-
-
-
-
+            elif delta_rank < rank: # a l
+                #{"AVAX":[{"delta":"-1","var1":"tbd","var2":"tbd"}]}
+                print("found at rank ",delta_rank, "set to red")
+                pass
+    
         '''
         #---------------------------------------------------------------------------------
         # If mcdelta_11.json does not exist then 
@@ -752,7 +792,9 @@ class MCDelta():
         #print("list_len ", len(mcdelta_list))
         mcdelta_list_len = len(mcdelta_list)
         mc_rank = "not set"
-        for mc_rank in range(1,mcdelta_list_len):
+        #for mc_rank in range(1,mcdelta_list_len):
+        for mc_rank in range(1,16):
+            #print("mc rank type ", type(mc_rank))
             mc_set = mcdelta_list[mc_rank]
             #print("row type ", type(mc_set),mc_set.keys())
             #print(mc_set)
@@ -768,6 +810,13 @@ class MCDelta():
             else:
                 #print("the essence of the work starts here: ", mc_rank, mc[mc_len-2], mc[mc_len-1])
                 find_the_delta(mc_rank, mc[mc_len-1])
+
+        with open(mcdelta_json_dev_file) as f:
+            try:
+                json.dump(data, open(mcdelta_json_dev_file, "w"))
+            except:
+                print("ERROR writing mcdelta_obj after added ")
+
 
 
 
