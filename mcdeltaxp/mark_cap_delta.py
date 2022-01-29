@@ -496,25 +496,22 @@ class MCDelta():
     def update_mcdelta_11json_file():
         print("- update_mcdelta_11json_file")
         #---------------------------------------------------------------------------------
-        #
         # If mcdelta_11.json does not exist then 
         # ( what a pain, python can't call in methods in the class/file
-        #
-        # create the file and update it with the root, json dict(ionary) object, mcdelta
+        #   create the file and update it with the root, json dict(ionary ) object, mcdelta
         # the create did not work
-        # 
         mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_obj = {}
         try:
             with open(mcdelta_json_dev_file) as fp:
                 mcdelta_obj = json.load(fp)
+            fp.close()
         except FileNotFoundError:
             print("FileNotFoundError 01 in update_mcdelta_11json_file")
         except:
             print("ERROR 01 in update_mcdelta_11json_file")
 
         #--------------------------------------------------------------------------------
-        #
         # Pull out market data from the newest reference file  
         #
         last_file = ""
@@ -522,30 +519,19 @@ class MCDelta():
             last_file = file
 
         dir_and_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
-        #print(">>> last file", dir_and_file)
         f = open(dir_and_file)
         crypto_market_data = json.load(f)
         f.close()
 
         #--------------------------------------------------------------------------------
-        #
         # The mcdelta date format
         #
-        #print("last file name ", last_file)
         left_str = last_file.split(".")
-        #print(left_str)
-        #print(left_str[0])
         date_object = date.fromtimestamp(int(left_str[0]))
-        #print(date_object)
         time_object = date.fromtimestamp(int(left_str[1]))
-        #print(time_object)
 
-        #print("date_object type ", type(date_object))
         date_str = str(date_object)
-        #print(date_str)
         date_split = date_str.split('-')
-        #print(date_split)
-        #print(date_split[1])
 
         year = "not set"
         if date_split[0] == "2022":
@@ -579,19 +565,14 @@ class MCDelta():
         elif date_split[1] == "12":
             month = "De"
 
-        #print(month) #  dead code, remove it
         date_header = month + date_split[2] + year
-        #print(date_header)
 
         #--------------------------------------------------------------------------------
-        #
         # The mcdelta date format, add an item, mcdelta-date, to the reference file.
         # https://stackoverflow.com/questions/21035762/python-read-json-file-and-modify
-        #
         # Write the date_header, the column name for this info, into the file.
-        # with open(pnn) as f:
         # with open(last_file) as f:
-        #print("---->",dir_and_file)
+        # print("---->",dir_and_file)
         with open(dir_and_file) as f:
             data = json.load(f)
             data["mcdelta-date"] = date_header
@@ -602,23 +583,17 @@ class MCDelta():
         # open mcdelta_11.json
         #
         crypto_market_data = data
-        #print("mcdelta-date ", crypto_market_data["mcdelta-date"])
         mcdelta_date = crypto_market_data["mcdelta-date"]
-        #print("             ", mcdelta_date)
 
         if type(mcdelta_obj["mcdelta"]) == type(list()):
 
             mcdelta_length = len(mcdelta_obj["mcdelta"])
-            #print("mcdelta_length", mcdelta_length)
             date_list = mcdelta_obj["mcdelta"][0]["dates"]
-            #print("date_list ",type(date_list))
 
             # add column, start with date
             if type(date_list) == type(list()):
 
-                #print(date_list)
                 date_list_len = len(date_list)
-                #print("date list len ", date_list_len)
 
                 if date_list_len == 0:
 
@@ -662,14 +637,12 @@ class MCDelta():
                     #
                     # print(type(data["coins"]))
                     # loop through dates row
-                    #print(">>>>>>  loop through dates row")
                     add_column_data = False
                     for d in range(0,date_list_len):
                         if date_list[d] == date_header:
                             add_column_data = False
                         else:
                             add_column_data = True
-                    #print("add_column_data ",add_column_data)
 
                     if add_column_data:
                         mcdelta_obj["mcdelta"][0]["dates"].append(date_header)
@@ -692,6 +665,8 @@ class MCDelta():
                     json.dump(mcdelta_obj, open(mcdelta_json_dev_file, "w"))
                 except:
                     print("ERROR writing mcdelta_obj after added ")
+
+        print("- update_mcdelta_11json_file")
 
     def market_cap_delta_scan_and_display_markups():
         print("- market_cap_delta_scan_and_display_markups()")
@@ -716,9 +691,6 @@ class MCDelta():
         def find_the_delta(rank, coin):
             try:
                 print("find the delta for ", rank, coin)
-                mcdelta_list_len = len(mcdelta_list)
-                mc_rank = "not set"
-
                 #--------------------------------------------------------------
                 #
                 # This algorythmn finds the coin's last rank by looking first 
@@ -729,8 +701,6 @@ class MCDelta():
                 delta_rank = -1
                 upper_rank = rank
                 lower_rank = rank
-                found_higher = False
-                found_lower  = False
                 in_upper_range_limit = True
                 in_lower_range_limit = True
                 while looking:
@@ -739,14 +709,11 @@ class MCDelta():
 
                     #----------------------------------------------------------
                     # redandant, isn't that the coin passed into this method
-                    for j in mc_rank_set.keys():
-                        mc = mc_rank_set[j]
-                    reference_coin = mc[mc_len-1]
-
-                    #----------------------------------------------------------
-                    # irrelevant, see if check in front of find_the_delta call
-                    if reference_coin == "???": # skip if ???
-                        looking = False
+                    #for j in mc_rank_set.keys():
+                    #    mc = mc_rank_set[j]
+                    #reference_coin = mc[mc_len-1]
+                    reference_coin = coin
+                    print("reference_coin type ",type(reference_coin))
 
                     #----------------------------------------------------------
                     # look UP one and back one column
@@ -760,7 +727,18 @@ class MCDelta():
                     for j in mc_rank_set.keys():
                         mc = mc_rank_set[j]
 
-                    if (mc[mc_len-2] == reference_coin) & looking & in_upper_range_limit:
+                    column2_check_coin = "not set"
+                    if isinstance(mc[mc_len-2],dict):
+                        print("mc[mc_len-2] type ",type(mc[mc_len-2]))
+                        for k in mc[mc_len-2].keys():
+                            column2_check_coin = k
+                        print("coin ", column2_check_coin)
+
+                    if isinstance(mc[mc_len-2],str):
+                        column2_check_coin = mc[mc_len-2]
+
+                    #if (mc[mc_len-2] == reference_coin) & looking & in_upper_range_limit:
+                    if (column2_check_coin == reference_coin) & looking & in_upper_range_limit:
                         local_upper = upper_rank
                         delta_rank = local_upper
                         looking = False
@@ -776,7 +754,29 @@ class MCDelta():
                     for j in mc_rank_set.keys():
                         mc = mc_rank_set[j]
 
-                    if (mc[mc_len-2] == reference_coin) & looking & in_lower_range_limit:
+                    '''
+                    coin = "not set"
+                    if isinstance(mc[mc_len-2],dict):
+                        print("mc[mc_len-2] type ",type(mc[mc_len-2]))
+                        for k in mc[mc_len-2].keys():
+                            coin = k
+                        print("coin ", coin)
+
+                    if isinstance(mc[mc_len-2],str):
+                        coin = mc[mc_len-2]
+                    '''
+                    column2_check_coin = "not set"
+                    if isinstance(mc[mc_len-2],dict):
+                        print("mc[mc_len-2] type ",type(mc[mc_len-2]))
+                        for k in mc[mc_len-2].keys():
+                            column2_check_coin = k
+                        print("coin ", column2_check_coin)
+
+                    if isinstance(mc[mc_len-2],str):
+                        column2_check_coin = mc[mc_len-2]
+
+                    #if (mc[mc_len-2] == reference_coin) & looking & in_lower_range_limit:
+                    if (column2_check_coin == reference_coin) & looking & in_lower_range_limit:
                         local_lower = lower_rank
                         delta_rank = local_lower
                         looking = False
@@ -792,6 +792,9 @@ class MCDelta():
                     del(data["mcdelta"][rank][str(rank)][mc_len-1])
                     data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"-1","var1":"tbd","var":"tbd"}]})
                     #print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
+                elif delta_rank == rank:
+                    print("delta_rank == rank, ",rank)
+                    print("the coin was not found in previous column")
 
             except IndexError as ie:
                 print("upper rank = ", upper_rank, "; lower rank = ", lower_rank)
@@ -807,7 +810,8 @@ class MCDelta():
         #
         mcdelta_list_len = len(mcdelta_list)
         mc_rank = "not set"
-        for mc_rank in range(1,mcdelta_list_len):
+        #for mc_rank in range(1,mcdelta_list_len):
+        for mc_rank in range(1,15):
             mc_set = mcdelta_list[mc_rank]
 
             mc = "not set"
@@ -831,12 +835,4 @@ class MCDelta():
         listOfFiles = os.listdir('.')
         for entry in listOfFiles:
             print("Date = ", date.fromtimestamp(float(entry)),", File Name = ", entry)
-
-
-
-
-
-
-
-
-
+            

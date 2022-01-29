@@ -22,23 +22,25 @@ class TDDmcdelta(unittest.TestCase):
     def test01_get_raw_coinstats_on_run(self):
         MCDelta.get_raw_coinstats_on_run()
 
-    def test12_generate_from_scratch_mcdelta_11json_file(self):
-        MCDelta.generate_from_scratch_mcdelta_11json_file()
+    #def test12_generate_from_scratch_mcdelta_11json_file(self):
+    #    MCDelta.generate_from_scratch_mcdelta_11json_file()
 
+    '''
     def test13_update_mcdelta_11json_file(self):
         MCDelta.update_mcdelta_11json_file()
 
-    #def test15_market_cap_delta_display(self):
-    #    MCDelta.market_cap_delta_scan_and_display_markups()
+    def test15_market_cap_delta_display(self):
+        MCDelta.market_cap_delta_scan_and_display_markups()
 
-    #def test16_market_cap_delta_display_from_04json_to_dev4_html(self):
-    #    MCDelta.write_mcdelta_html_from_04json_data()
+    def test16_market_cap_delta_display_from_04json_to_dev4_html(self):
+        MCDelta.write_mcdelta_html_from_04json_data()
     
     def test17_write_mcdelta_html_from_11json_data(self):
         MCDelta.write_mcdelta_html_from_11json_data()
+    '''
 
-    #def test29_file_dates(self):
-    #    MCDelta.list_file_dates()
+    def test29_file_dates(self):
+        MCDelta.list_file_dates()
 
     def test30_zip_n_deploy(self):
         #print("")
