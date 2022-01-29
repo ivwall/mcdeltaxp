@@ -5,12 +5,13 @@ import datetime
 from datetime import date
 import os
 from operator import itemgetter
+import sys
 
 cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
 
 class MCDelta():
 
-    def writejson_to_timestamp_file():
+    def get_raw_coinstats_on_run():
         pass
         try:
             os.chdir('../mcdeltaxp/00-raw-dev-data')
@@ -423,9 +424,6 @@ class MCDelta():
                 print("contains dates row")
                 print("               row 1")
 
-        #print(mcdelta_obj["mcdelta"][0])
-        #print(mcdelta_obj)
-
         with open(mcdelta_json_dev_file, 'w') as json_file:
             json.dump(mcdelta_obj, json_file)
 
@@ -711,104 +709,114 @@ class MCDelta():
         delta_json.close()
         mcdelta_list = data["mcdelta"]
 
-        def find_the_delta(rank, coin):
-            print("find the delta for ", rank, coin)
-            mcdelta_list_len = len(mcdelta_list)
-            mc_rank = "not set"
-
-            looking = True
-            found = False
-            up_one = 1
-            down_one = 1
-            delta_rank = "not set"
-            while looking:
-                mc_rank_set = mcdelta_list[rank]
-                #print(type(mc_rank_set),mc_rank_set)
-                mc = "not set"
-                for j in mc_rank_set.keys():
-                    mc = mc_rank_set[j]
-                print(len(mc), mc)
-                print("mc[mc_len-1] ",mc[mc_len-1]) # sloppy scope and visibility rules
-                reference_coin = mc[mc_len-1]
-
-                upper_row = rank - up_one
-                mc_rank_set = mcdelta_list[upper_row]
-                for j in mc_rank_set.keys():
-                    mc = mc_rank_set[j]
-                if mc[mc_len-2] == reference_coin:
-                    print(reference_coin, " found")
-                    print("lower set ",mc_rank_set)
-                    print(len(mc), mc)
-                    print("mc[mc_len-2] ",mc[mc_len-2])
-
-                lower_row = rank + down_one
-                mc_rank_set = mcdelta_list[lower_row]
-                for j in mc_rank_set.keys():
-                    mc = mc_rank_set[j]
-                if mc[mc_len-2] == reference_coin:
-                    print(reference_coin, " found")
-                    print("lower set ",mc_rank_set)
-                    print(len(mc), mc)
-                    print("mc[mc_len-2] ",mc[mc_len-2])
-                    found = True
-                    delta_rank = lower_row
-
-                print()
-                lower_row = rank 
-                looking = False
-
-            if delta_rank > rank: # a delta_rank greater than rank then set coin to green
-                #{"AVAX":[{"delta":"+1","var1":"tbd","var2":"tbd"}]}
-                print("found at rank ",delta_rank, ",set to green")
-                #print("finding the cell ",data["mcdelta"][rank][str(rank)](mc_len-1))
-                #data["mcdelta"][rank][str(rank)].replace("UST","{\"AVAX\":[{\"delta\":\"+1\",\"var1\":\"tbd\",\"var\":\"tbd\"}]}")
-                del(data["mcdelta"][rank][str(rank)][mc_len-1])
-                data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"+1","var1":"tbd","var":"tbd"}]})
-                print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
-                pass
-            elif delta_rank < rank: # a l
-                #{"AVAX":[{"delta":"-1","var1":"tbd","var2":"tbd"}]}
-                print("found at rank ",delta_rank, "set to red")
-                pass
-    
-        '''
-        #---------------------------------------------------------------------------------
-        # If mcdelta_11.json does not exist then 
-        # ( what a pain, python can't call in methods in the class/file
-        #
-        # create the file and update it with the root, json dict(ionary) object, mcdelta
-        # the create did not work
+        #----------------------------------------------------------------------
         # 
-        
-        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        delta_json = open(mcdelta_json_dev_file)
-        data = json.load(delta_json)
-        delta_json.close()
-        mcdelta_list = data["mcdelta"]
-        '''
+        # find the delta
+        #
+        def find_the_delta(rank, coin):
+            try:
+                print("find the delta for ", rank, coin)
+                mcdelta_list_len = len(mcdelta_list)
+                mc_rank = "not set"
 
-        #print("mcdelta_data is type", type(data))
-        #print("mcdelta_list ",type(mcdelta_list))
-        #print("list_len ", len(mcdelta_list))
+                #--------------------------------------------------------------
+                #
+                # This algorythmn finds the coin's last rank by looking first 
+                # one row up, and then one row down and expanding outwards,
+                # one row at a time.
+                #
+                looking = True
+                delta_rank = -1
+                upper_rank = rank
+                lower_rank = rank
+                found_higher = False
+                found_lower  = False
+                in_upper_range_limit = True
+                in_lower_range_limit = True
+                while looking:
+                    mc_rank_set = mcdelta_list[rank]
+                    mc = "not set"
+
+                    #----------------------------------------------------------
+                    # redandant, isn't that the coin passed into this method
+                    for j in mc_rank_set.keys():
+                        mc = mc_rank_set[j]
+                    reference_coin = mc[mc_len-1]
+
+                    #----------------------------------------------------------
+                    # irrelevant, see if check in front of find_the_delta call
+                    if reference_coin == "???": # skip if ???
+                        looking = False
+
+                    #----------------------------------------------------------
+                    # look UP one and back one column
+                    if upper_rank == 1:
+                        in_upper_range_limit = False
+                    else:
+                        upper_rank -= 1
+
+                    mc_rank_set = mcdelta_list[upper_rank]
+
+                    for j in mc_rank_set.keys():
+                        mc = mc_rank_set[j]
+
+                    if (mc[mc_len-2] == reference_coin) & looking & in_upper_range_limit:
+                        local_upper = upper_rank
+                        delta_rank = local_upper
+                        looking = False
+
+                    #----------------------------------------------------------
+                    # look DOWN one row and back one column
+                    if lower_rank == 2000:
+                        in_lower_range_limit = False
+                    else:
+                        lower_rank += 1
+
+                    mc_rank_set = mcdelta_list[lower_rank]
+                    for j in mc_rank_set.keys():
+                        mc = mc_rank_set[j]
+
+                    if (mc[mc_len-2] == reference_coin) & looking & in_lower_range_limit:
+                        local_lower = lower_rank
+                        delta_rank = local_lower
+                        looking = False
+
+                    if in_lower_range_limit == False & in_upper_range_limit == False:
+                        looking = False
+
+                if delta_rank > rank: # a delta_rank greater than rank then set coin to green
+                    del(data["mcdelta"][rank][str(rank)][mc_len-1])
+                    data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"+1","var1":"tbd","var":"tbd"}]})
+                    #print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
+                elif delta_rank < rank: # a l
+                    del(data["mcdelta"][rank][str(rank)][mc_len-1])
+                    data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"-1","var1":"tbd","var":"tbd"}]})
+                    #print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
+
+            except IndexError as ie:
+                print("upper rank = ", upper_rank, "; lower rank = ", lower_rank)
+                print(ie)
+
+    
+        #---------------------------------------------------------------------------------
+        #
+        # run through last column, if the last column cell does not match then
+        # call find_the_delta which locates the coin in the previous column
+        # if it was a higher market cap then set the cell to red
+        # if it was a lower market cap then set the cell to green
+        #
         mcdelta_list_len = len(mcdelta_list)
         mc_rank = "not set"
-        #for mc_rank in range(1,mcdelta_list_len):
-        for mc_rank in range(1,16):
-            #print("mc rank type ", type(mc_rank))
+        for mc_rank in range(1,mcdelta_list_len):
             mc_set = mcdelta_list[mc_rank]
-            #print("row type ", type(mc_set),mc_set.keys())
-            #print(mc_set)
 
             mc = "not set"
             for j in mc_set.keys():
                 mc = mc_set[j]
+
             mc_len = len(mc)
-            #print("mc lenth ",mc_len)
-            #print(mc[mc_len-1])
-            if mc[mc_len-2] == mc[mc_len-1]:
-                pass
-            else:
-                #print("the essence of the work starts here: ", mc_rank, mc[mc_len-2], mc[mc_len-1])
+                
+            if (mc[mc_len-2] != mc[mc_len-1]) & (type(mc[mc_len-1]) != dict) & (mc[mc_len-1] != "???"):
                 find_the_delta(mc_rank, mc[mc_len-1])
 
         with open(mcdelta_json_dev_file) as f:
@@ -817,6 +825,12 @@ class MCDelta():
             except:
                 print("ERROR writing mcdelta_obj after added ")
 
+    def list_file_dates():
+        data_dir = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/00-raw-dev-data"
+        os.chdir(data_dir)
+        listOfFiles = os.listdir('.')
+        for entry in listOfFiles:
+            print("Date = ", date.fromtimestamp(float(entry)),", File Name = ", entry)
 
 
 
