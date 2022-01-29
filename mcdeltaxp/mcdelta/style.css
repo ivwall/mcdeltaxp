@@ -35,7 +35,7 @@ tbody {
   position: relative;
   display: block; /*seperates the tbody from the header*/
   width: 700px;
-  height: 239px;
+  height: 480px;
   overflow: scroll;
 }
 

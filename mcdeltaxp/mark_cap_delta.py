@@ -690,9 +690,8 @@ class MCDelta():
         #
         def find_the_delta(rank, coin):
             try:
-                print("find the delta for ", rank, coin)
+                # print("find the delta for ", rank, coin)
                 #--------------------------------------------------------------
-                #
                 # This algorythmn finds the coin's last rank by looking first 
                 # one row up, and then one row down and expanding outwards,
                 # one row at a time.
@@ -709,11 +708,8 @@ class MCDelta():
 
                     #----------------------------------------------------------
                     # redandant, isn't that the coin passed into this method
-                    #for j in mc_rank_set.keys():
-                    #    mc = mc_rank_set[j]
-                    #reference_coin = mc[mc_len-1]
                     reference_coin = coin
-                    print("reference_coin type ",type(reference_coin))
+                    #print("reference_coin type ",type(reference_coin))
 
                     #----------------------------------------------------------
                     # look UP one and back one column
@@ -729,10 +725,10 @@ class MCDelta():
 
                     column2_check_coin = "not set"
                     if isinstance(mc[mc_len-2],dict):
-                        print("mc[mc_len-2] type ",type(mc[mc_len-2]))
+                        #print("mc[mc_len-2] type ",type(mc[mc_len-2]))
                         for k in mc[mc_len-2].keys():
                             column2_check_coin = k
-                        print("coin ", column2_check_coin)
+                        #print("coin ", column2_check_coin)
 
                     if isinstance(mc[mc_len-2],str):
                         column2_check_coin = mc[mc_len-2]
@@ -767,10 +763,10 @@ class MCDelta():
                     '''
                     column2_check_coin = "not set"
                     if isinstance(mc[mc_len-2],dict):
-                        print("mc[mc_len-2] type ",type(mc[mc_len-2]))
+                        #print("mc[mc_len-2] type ",type(mc[mc_len-2]))
                         for k in mc[mc_len-2].keys():
                             column2_check_coin = k
-                        print("coin ", column2_check_coin)
+                        #print("coin ", column2_check_coin)
 
                     if isinstance(mc[mc_len-2],str):
                         column2_check_coin = mc[mc_len-2]
@@ -788,10 +784,12 @@ class MCDelta():
                     del(data["mcdelta"][rank][str(rank)][mc_len-1])
                     data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"+1","var1":"tbd","var":"tbd"}]})
                     #print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
-                elif delta_rank < rank: # a l
+
+                elif delta_rank < rank: # set coin to red
                     del(data["mcdelta"][rank][str(rank)][mc_len-1])
                     data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"-1","var1":"tbd","var":"tbd"}]})
                     #print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
+
                 elif delta_rank == rank:
                     print("delta_rank == rank, ",rank)
                     print("the coin was not found in previous column")
@@ -811,7 +809,7 @@ class MCDelta():
         mcdelta_list_len = len(mcdelta_list)
         mc_rank = "not set"
         #for mc_rank in range(1,mcdelta_list_len):
-        for mc_rank in range(1,15):
+        for mc_rank in range(1,2000):
             mc_set = mcdelta_list[mc_rank]
 
             mc = "not set"
@@ -819,13 +817,21 @@ class MCDelta():
                 mc = mc_set[j]
 
             mc_len = len(mc)
-                
-            if (mc[mc_len-2] != mc[mc_len-1]) & (type(mc[mc_len-1]) != dict) & (mc[mc_len-1] != "???"):
+
+            column2_check_coin = "not set"
+            if isinstance(mc[mc_len-2],dict):
+                for k in mc[mc_len-2].keys():
+                    column2_check_coin = k
+            if isinstance(mc[mc_len-2],str):
+                column2_check_coin = mc[mc_len-2]
+
+            if (column2_check_coin != mc[mc_len-1]) & (type(mc[mc_len-1]) != dict) & (mc[mc_len-1] != "???"):
                 find_the_delta(mc_rank, mc[mc_len-1])
 
         with open(mcdelta_json_dev_file) as f:
             try:
                 json.dump(data, open(mcdelta_json_dev_file, "w"))
+                f.close()
             except:
                 print("ERROR writing mcdelta_obj after added ")
 
