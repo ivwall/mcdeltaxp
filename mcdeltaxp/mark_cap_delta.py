@@ -136,32 +136,23 @@ class MCDelta():
                     f.write("</th>")
             f.write("</tr>")
 
-        ''''''
+
         def walk_through_cell_attribute_list(data,f):
-            #print("walk_through_cell_attribute_list ", type(data), data)
             for x in data:
-                #print(x)
-                #print(x["delta"])
-                #print(x["var1"])
                 if x["delta"] == "+1":
-                    #print("+1")
                     f.write("<td style=\"background-color:#a8d08d; text-align:center;\">")
                 elif x["delta"] == "-1":
-                    #print("-1")
                     f.write("<td style=\"background-color:#e99d9b; text-align:center;\">")
 
         def parse_cell_item(data,f):
-            #print("parse cell item ", type(data), data)
             for key,value in data.items():
                 cellString = key
-                #print("key ",cellString)
-                #print("value type ",type(value), value)
                 if type(value) == type(list()):
                     walk_through_cell_attribute_list(value,f)
                 f.write(cellString)
                 f.write("</td>")
 
-        ''''''
+
         def write_row(data,f):
             f.write("<tr>")
             for key,value in data.items():
@@ -183,7 +174,6 @@ class MCDelta():
         try:
             os.remove( dev2_html_file )
         except:
-            #print("file does not exist")
             pass
 
         f = open(dev2_html_file, "w")
@@ -257,7 +247,7 @@ class MCDelta():
                     f.write("</th>")
             f.write("</tr>")
 
-        ''''''
+
         def walk_through_cell_attribute_list(data,f):
             #print("walk_through_cell_attribute_list ", type(data), data)
             for x in data:
@@ -282,7 +272,7 @@ class MCDelta():
                 f.write(cellString)
                 f.write("</td>")
 
-        ''''''
+
         def write_row(data,f):
             f.write("<tr>")
             for key,value in data.items():
