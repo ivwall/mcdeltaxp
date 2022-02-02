@@ -22,6 +22,8 @@ class TDDmcdelta(unittest.TestCase):
     def test01_get_raw_coinstats_on_run(self):
         MCDelta.get_raw_coinstats_on_run()
 
+    #--------------------------------------------------------------------------
+    # KEEP THIS
     #def test12_generate_from_scratch_mcdelta_11json_file(self):
     #    MCDelta.generate_from_scratch_mcdelta_11json_file()
 
@@ -37,6 +39,8 @@ class TDDmcdelta(unittest.TestCase):
     def test17_write_mcdelta_html_from_11json_data(self):
         MCDelta.write_mcdelta_html_from_11json_data()
 
+    #--------------------------------------------------------------------------
+    # KEEP THIS
     #def test29_file_dates(self):
     #    MCDelta.list_file_dates()
 

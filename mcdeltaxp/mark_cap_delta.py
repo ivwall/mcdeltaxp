@@ -33,6 +33,8 @@ class MCDelta():
         except:
             print("ERROR writejson_to_timestamp_file")
         
+
+    '''    
     def write_mcdelta_html_from_03json_data():
         #https://stackoverflow.com/questions/34818782/iterate-through-nested-json-object-and-get-values-with-python
         def write_header_row(data,f):
@@ -121,7 +123,8 @@ class MCDelta():
         f.write("  </body>")
         f.write("</html>")
         f.close()
-
+    '''
+    '''
     def write_mcdelta_html_from_04json_data():
         print("04json work")
         def write_header_row(data,f):
@@ -231,6 +234,7 @@ class MCDelta():
         f.write("  </body>")
         f.write("</html>")
         f.close()
+    '''
 
 
     def write_mcdelta_html_from_11json_data():
@@ -353,6 +357,7 @@ class MCDelta():
         f.write("</html>")
         f.close()
 
+    '''
     def update_mcdelta_0x_from_raw_data():
         print("- update_mcdelta_0x_from_raw_data()")
         #https://howtodoinjava.com/python/json/append-json-to-file/
@@ -416,7 +421,7 @@ class MCDelta():
 
         with open(mcdelta_json_dev_file, 'w') as json_file:
             json.dump(mcdelta_obj, json_file)
-
+    '''
 
     def generate_from_scratch_mcdelta_11json_file():
         print("- generate_from_scratch_mcdelta_11json_file()")
@@ -753,15 +758,12 @@ class MCDelta():
                     '''
                     column2_check_coin = "not set"
                     if isinstance(mc[mc_len-2],dict):
-                        #print("mc[mc_len-2] type ",type(mc[mc_len-2]))
                         for k in mc[mc_len-2].keys():
                             column2_check_coin = k
-                        #print("coin ", column2_check_coin)
 
                     if isinstance(mc[mc_len-2],str):
                         column2_check_coin = mc[mc_len-2]
 
-                    #if (mc[mc_len-2] == reference_coin) & looking & in_lower_range_limit:
                     if (column2_check_coin == reference_coin) & looking & in_lower_range_limit:
                         local_lower = lower_rank
                         delta_rank = local_lower
@@ -773,7 +775,6 @@ class MCDelta():
                 if delta_rank > rank: # a delta_rank greater than rank then set coin to green
                     del(data["mcdelta"][rank][str(rank)][mc_len-1])
                     data["mcdelta"][rank][str(rank)].append({coin:[{"delta":"+1","var1":"tbd","var":"tbd"}]})
-                    #print("finding the cell ",data["mcdelta"][rank][str(rank)][mc_len-1])
 
                 elif delta_rank < rank: # set coin to red
                     del(data["mcdelta"][rank][str(rank)][mc_len-1])
