@@ -18,7 +18,8 @@ thead {
 thead th {
   background-color: #99a;
   /*min-width: 120px;*/
-  width: 65px;
+  min-width: none;width: 65px;
+  /*width: 65px;*/
   height: 20px;
   border: 1px solid #222;
 }
@@ -42,8 +43,8 @@ tbody {
 tbody td {
   background-color: #fff;
   /*min-width: 120px;*/
-  /*min-width: 65px;*/
-  width: 65px;
+  min-width: 65px;
+  /*width: 65px;*/
   border: 1px solid #222;
   overflow: hidden;
 }
