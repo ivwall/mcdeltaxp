@@ -19,68 +19,60 @@ from mcdeltaxp.mark_cap_delta import MCDelta
 
 class TDDmcdelta(unittest.TestCase):
 
-    def test04_pull_data(self):
-        MCDelta.get_coin_stats()
+    def test01_get_raw_coinstats_on_run(self):
+        MCDelta.get_raw_coinstats_on_run()
 
-    def test05_walk_the_tree_pull_coin_n_cap(self):
-        MCDelta.pull_coin_n_market_cap()
+    #--------------------------------------------------------------------------
+    # KEEP THIS
+    #def test12_generate_from_scratch_mcdelta_11json_file(self):
+    #    MCDelta.generate_from_scratch_mcdelta_11json_file()
 
-    def test06_timestamp(self):
-        MCDelta.displaytimestamp()
+    def test13_update_mcdelta_11json_file(self):
+        MCDelta.update_mcdelta_11json_file()
 
-    def test07_create_file_with_timestamp_name(self):
-        MCDelta.create_file_with_timestamp_name()
+    def test15_market_cap_delta_display(self):
+        MCDelta.market_cap_delta_scan_and_display_markups()
 
-    def test08_writejson_to_timestamp_file(self):
-        MCDelta.writejson_to_timestamp_file()
+    #def test16_market_cap_delta_display_from_04json_to_dev4_html(self):
+    #    MCDelta.write_mcdelta_html_from_04json_data()
 
-    def test09_list_data_files(self):
-        MCDelta.list_data_files()
+    def test17_write_mcdelta_html_from_11json_data(self):
+        MCDelta.write_mcdelta_html_from_11json_data()
 
-    def test10_read_last_data_file(self):
-        MCDelta.read_last_data_file()
-    
-    def test13_develop_mcdelta_json(self):
-        MCDelta.develop_mcdelta_json()
+    #--------------------------------------------------------------------------
+    # KEEP THIS
+    #def test29_file_dates(self):
+    #    MCDelta.list_file_dates()
 
-    def test15_read_update_write_json(self):
-        MCDelta.ruwb_json()
-
-    def test16_write_mcdelta_html_from_03json_data(self):
-        MCDelta.write_mcdelta_html_from_03json_data()
-
-    def test17_write_mcdelta_html_from_04json_data(self):
-        MCDelta.write_mcdelta_html_from_04json_data()
-
-    def test20_zip_n_deploy(self):
-        print("")
+    def test30_zip_n_deploy(self):
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
+        #print("")
         subprocess.run(["sudo", "su -"])
-        print("")
-        print(os.getcwd())
-        print("")
+        #print("")
+        #print(os.getcwd())
+        #print("")
         os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp')
-        print("")
-        print(os.getcwd())
-        print("")
+        #print("")
+        #print(os.getcwd())
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
+        #print("")
         subprocess.run(["jar", "cvf", "mcdelta.war", "mcdelta"])
-        print("")
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
-        print("")
+        #print("")
+        #print("")
         subprocess.run(["sudo", "rm", "/opt/tomcat/latest/webapps/mcdelta.war"])
-        print("")
+        #print("")
         subprocess.run(["sudo", "cp", "mcdelta.war", "/opt/tomcat/latest/webapps/"])
-        print("")
-        subprocess.run(["ls", "-l"])
+        #print("")
+        #subprocess.run(["ls", "-l"])
         print("")
         subprocess.run(["rm", "mcdelta.war"])
-        print("")
+        #print("")
         subprocess.run(["ls", "-l"])
-        print("")
+        #print("")
         print("      zip n deploy ")
 
 if __name__ == '__main__':
