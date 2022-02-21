@@ -295,7 +295,7 @@ class MCDelta():
 
         #dev11_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
         #dev11_html_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdelta/dev11.html"
-        dev11_html_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
+        dev11_html_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
 
         try:
             os.remove( dev11_html_file )
@@ -335,7 +335,7 @@ class MCDelta():
         f.write("<br/>")
         
         #mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_json_dev_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         delta_json = open(mcdelta_json_dev_file)
         data = json.load(delta_json)
         delta_json.close()
@@ -502,7 +502,7 @@ class MCDelta():
         # 
 
         #mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_json_dev_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_obj = {}
         if os.path.isfile(mcdelta_json_dev_file) is False:
             mcdelta_obj.update({
@@ -522,13 +522,13 @@ class MCDelta():
         #
         # Pull out market data from a reference file  
         #
-        referenceDir = '/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data'
+        referenceDir = '/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data'
         #for file in sorted(os.listdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')):
         for file in sorted(os.listdir(referenceDir)):
             print(">> ",file)
             last_file = file
 
-        last_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
+        last_file = "/home/dlt06/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
         print(">>> last file", last_file)
         f = open(last_file)
         crypto_market_data = json.load(f)
@@ -569,7 +569,7 @@ class MCDelta():
         #   create the file and update it with the root, json dict(ionary ) object, mcdelta
         # the create did not work
         #mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_json_dev_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_obj = {}
         try:
             with open(mcdelta_json_dev_file) as fp:
@@ -584,14 +584,14 @@ class MCDelta():
         # Pull out market data from the newest reference file  
         #
         last_file = ""
-        referenceDir = '/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data'
+        referenceDir = '/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data'
         #for file in sorted(os.listdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')):
         for file in sorted(os.listdir(referenceDir)):
             last_file = file
 
         #dir_and_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
         #dir_and_file = referenceDir+"/"+last_file
-        dir_and_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
+        dir_and_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
         f = open(dir_and_file)
         crypto_market_data = json.load(f)
         f.close()
@@ -751,7 +751,7 @@ class MCDelta():
         # the create did not work
         # 
         
-        mcdelta_json_dev_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         delta_json = open(mcdelta_json_dev_file)
         data = json.load(delta_json)
         delta_json.close()
@@ -906,7 +906,7 @@ class MCDelta():
 
     def list_file_dates():
         #data_dir = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/00-raw-dev-data"
-        data_dir = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/00-raw-dev-data"
+        data_dir = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/00-raw-dev-data"
         os.chdir(data_dir)
         listOfFiles = os.listdir('.')
         for entry in listOfFiles:

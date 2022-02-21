@@ -52,7 +52,7 @@ class TDDmcdelta(unittest.TestCase):
         #print("")
         #print(os.getcwd())
         #print("")
-        gotoDir = '/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp' 
+        gotoDir = '/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp' 
         #os.chdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp')
         os.chdir(gotoDir)
         #print("")
