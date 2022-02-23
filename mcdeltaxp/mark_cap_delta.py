@@ -357,6 +357,17 @@ class MCDelta():
         f.write("</table>")
         f.write("")
         f.write("  </body>")
+        f.write("  Feb 23<pre>")
+        f.write("  TREAT<br/>")
+        f.write("  <br/>")
+        f.write("  G-UNI, Gelato Network, a blockchain automation infrastructure developer.<br/>")
+        f.write("         The partnership sees the integration of Gelato Network’s G-UNI Uniswap V3 as.<br/>")
+        f.write("          collateral into MakerDAO’s protocol, allowing users token holders to <br/>")
+        f.write("          use wrapped Uniswap V3 positions for minting DAI<br/>")
+        f.write("          contract" 0xabddafb225e10b90d798bb8a886238fb835e2053<br/>")
+        f.write("  <br/>")
+        f.write("  <br/>")
+        f.write("  <br/>")
         f.write("  <br/>")
         f.write("  Feb 18<br/>")
         f.write("  HBAR, https://hedera.com/, <br/>")
@@ -367,7 +378,6 @@ class MCDelta():
         f.write("          high-throughput, low fees, and finality in seconds, Hedera leads the way <br/>")
         f.write("          for the future of public ledgers.<br/>")
         f.write("  <br/>")
-        f.write("  <pre>")
         f.write("  Feb 16<br/>")
         f.write("  OCEAN, https://oceanprotocol.com/, unlocks the value of data.<br/>")
         f.write("         Data owners and consumers use Ocean Market app to publish, discover,<br/>")
@@ -427,71 +437,6 @@ class MCDelta():
         f.write("</html>")
         f.close()
 
-    '''
-    def update_mcdelta_0x_from_raw_data():
-        print("- update_mcdelta_0x_from_raw_data()")
-        #https://howtodoinjava.com/python/json/append-json-to-file/
-
-        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_06.json"
-        mcdelta_obj = {}
-
-        if os.path.isfile(mcdelta_json_dev_file) is False:
-            mcdelta_obj.update({
-                "mcdelta":[]
-            })
-        else:
-            with open(mcdelta_json_dev_file) as fp:
-                mcdelta_obj = json.load(fp)
-
-        #print(mcdelta_obj)
-        obj = mcdelta_obj["mcdelta"]
-        #print("type ",type(obj), obj)
-
-        #---------------------------------------------------------------------------------
-
-        listOfFiles = os.listdir('.')
-        file_list_len = len(listOfFiles)        
-        last_file = listOfFiles[ file_list_len - 1]
-        path_2_data = os.getcwd()
-        pnn = path_2_data + os.path.sep + last_file
-        #print( pnn )
-        f = open(last_file)
-        data = json.load(f)
-        f.close()
-        text = json.dumps(data, sort_keys=True,indent=4)
-        #print(text)
-        text = json.dumps(data["coins"][0], sort_keys=True,indent=4)
-        #print(text)
-        #print(data["coins"][0])
-        #print(data["coins"][0]["symbol"])
-        #print(data["coins"][0]["rank"])
-
-        if type(mcdelta_obj["mcdelta"]) == type(list()):
-            mcdelta_length = len(mcdelta_obj["mcdelta"])
-            #print("mcdelt_length", mcdelta_length)
-            if mcdelta_length == 0:
-                mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
-                #print("insert dates row, row 0")
-
-        if type(mcdelta_obj["mcdelta"]) == type(list()):
-            mcdelta_length = len(mcdelta_obj["mcdelta"])
-            #print("mcdelt_length", mcdelta_length)
-            if mcdelta_length == 1:   # <==== meaning, only the header, date, row exists
-                #print(type(data["coins"]))
-                number_of_coins = len(data["coins"])
-                #print(number_of_coins)
-                for s in range(0,number_of_coins):  # <=== add a row for each coin
-                    x = s + 1
-                    symbol = data["coins"][s]["symbol"]
-                    rank = data["coins"][s]["rank"]
-                    #print("  "+str(rank)+" "+symbol)
-                    mcdelta_obj["mcdelta"].insert(x,{str(x):[]})
-                print("contains dates row")
-                print("               row 1")
-
-        with open(mcdelta_json_dev_file, 'w') as json_file:
-            json.dump(mcdelta_obj, json_file)
-    '''
 
     def generate_from_scratch_mcdelta_11json_file():
         print("- generate_from_scratch_mcdelta_11json_file()")
@@ -823,17 +768,6 @@ class MCDelta():
                     for j in mc_rank_set.keys():
                         mc = mc_rank_set[j]
 
-                    '''
-                    coin = "not set"
-                    if isinstance(mc[mc_len-2],dict):
-                        print("mc[mc_len-2] type ",type(mc[mc_len-2]))
-                        for k in mc[mc_len-2].keys():
-                            coin = k
-                        print("coin ", coin)
-
-                    if isinstance(mc[mc_len-2],str):
-                        coin = mc[mc_len-2]
-                    '''
                     column2_check_coin = "not set"
                     if isinstance(mc[mc_len-2],dict):
                         for k in mc[mc_len-2].keys():
