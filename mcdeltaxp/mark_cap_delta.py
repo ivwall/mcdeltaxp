@@ -331,9 +331,6 @@ class MCDelta():
         f.write("  <body ng-controller=\"MainCtrl\">")
         f.write("<br/>")
         f.write("<br/>")
-        f.write("<br/>")
-        f.write("<br/>")
-        
         #mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         delta_json = open(mcdelta_json_dev_file)
@@ -360,7 +357,7 @@ class MCDelta():
         f.write("  <pre>")
         f.write("  Feb 24<br/>")
         f.write("  IOTX 1000\%\ growth in last 28 days<br/>")
-        f.write("  <br/>")
+        f.write("  SKY<br/>")
         f.write("  <br/>")
         f.write("  <pre>")
         f.write("  Feb 23<br/>")
