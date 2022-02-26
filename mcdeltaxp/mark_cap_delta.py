@@ -34,209 +34,6 @@ class MCDelta():
             print("ERROR writejson_to_timestamp_file")
         
 
-    '''    
-    def write_mcdelta_html_from_03json_data():
-        #https://stackoverflow.com/questions/34818782/iterate-through-nested-json-object-and-get-values-with-python
-        def write_header_row(data,f):
-            f.write("<tr>")
-            for key,value in data.items():
-                f.write("<th style=\"left: 0px;\">")
-                f.write(key)
-                f.write("</th>")
-                for element in data[key]:
-                    f.write("<th>")
-                    f.write(element)
-                    f.write("</th>")
-            f.write("</tr>")
-
-        def write_row(data,f):
-            f.write("<tr>")
-            for key,value in data.items():
-                f.write("<td style=\"left: 0px;\">")
-                f.write(key)
-                f.write("</td>")
-                for element in data[key]:
-                    f.write("<td>")
-                    f.write(element)
-                    f.write("</td>")
-            f.write("</tr>")
-
-        dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev3.html"
-
-        try:
-            os.remove( dev2_html_file )
-        except:
-            print("file does not exist")
-
-        f = open(dev2_html_file, "w")
-        f.write("<!DOCTYPE html>\n")
-        f.write("<html ng-app=\"plunker\">\n")
-        f.write("  <head>\n")
-        f.write("    <meta charset=\"utf-8\" />\n")
-        f.write("    <title>MC Delta - Market Cap Changes</title>\n")
-        f.write("    <script>document.write('<base href=\"' + document.location + '\" />');</script>")
-        f.write("    <link rel=\"stylesheet\" href=\"style.css\" />")
-        f.write("    <script data-require=\"angular.js@1.3.x\" src=\"https://code.angularjs.org/1.3.20/angular.js\" data-semver=\"1.3.20\"></script>")
-        f.write("    <script data-require=\"jquery@3.1.1\" data-semver=\"3.1.1\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>")
-        f.write("    <script src=\"app.js\"></script>")
-        f.write("    <script>")
-        f.write("      $(document).ready(function() {")
-        f.write("  $('tbody').scroll(function(e) { //detect a scroll event on the tbody")
-        f.write("  	/*")
-        f.write("    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement")
-        f.write("    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    ")
-        f.write("    */\n")
-        f.write("    $('thead').css(\"left\", -$(\"tbody\").scrollLeft()); //fix the thead relative to the body scrolling\n")
-        f.write("    $('thead th:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first cell of the header\n")
-        f.write("    $('tbody td:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first column of tdbody\n")
-        f.write("  });")
-        f.write("});")
-        f.write("    </script>")
-        f.write("  </head>")
-        f.write("  <body ng-controller=\"MainCtrl\">")
-        f.write("<br/>")
-        f.write("<br/>")
-        f.write("<br/>")
-        f.write("<br/>")
-        
-        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_03.json"
-        delta_json = open(mcdelta_json_dev_file)
-        data = json.load(delta_json)
-        delta_json.close()
-        mcdelta_list = data["mcdelta"]
-        header_row = True
-        
-        f.write("<table>")
-        for val in mcdelta_list:
-            if header_row:
-                f.write("<thead>")
-                write_header_row(val,f)
-                header_row = False
-                f.write("</thead>")
-                f.write("<tbody>")
-            else:
-                write_row(val,f)
-
-        f.write("</tbody>")
-        f.write("</table>")
-        f.write("")
-        f.write("  </body>")
-        f.write("</html>")
-        f.close()
-    '''
-    '''
-    def write_mcdelta_html_from_04json_data():
-        print("04json work")
-        def write_header_row(data,f):
-            f.write("<tr>")
-            for key,value in data.items():
-                f.write("<th style=\"left: 0px;\">")
-                f.write(key)
-                f.write("</th>")
-                for element in data[key]:
-                    f.write("<th>")
-                    f.write(element)
-                    f.write("</th>")
-            f.write("</tr>")
-
-
-        def walk_through_cell_attribute_list(data,f):
-            for x in data:
-                if x["delta"] == "+1":
-                    f.write("<td style=\"background-color:#a8d08d; text-align:center;\">")
-                elif x["delta"] == "-1":
-                    f.write("<td style=\"background-color:#e99d9b; text-align:center;\">")
-
-        def parse_cell_item(data,f):
-            for key,value in data.items():
-                cellString = key
-                if type(value) == type(list()):
-                    walk_through_cell_attribute_list(value,f)
-                f.write(cellString)
-                f.write("</td>")
-
-
-        def write_row(data,f):
-            f.write("<tr>")
-            for key,value in data.items():
-                f.write("<td style=\" text-align:center; 0px;\">")
-                f.write(key)
-                f.write("</td>")
-                for element in data[key]:
-                    #print("element type ",type(element),element)
-                    if type(element) == type(str()):
-                        f.write("<td style=\"background-color:#a3cced; text-align:center;\">")
-                        f.write(element)
-                        f.write("</td>")
-                    else:
-                        parse_cell_item(element,f)
-            f.write("</tr>")
-
-        dev2_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev4.html"
-
-        try:
-            os.remove( dev2_html_file )
-        except:
-            pass
-
-        f = open(dev2_html_file, "w")
-        f.write("<!DOCTYPE html>\n")
-        f.write("<html ng-app=\"plunker\">\n")
-        f.write("  <head>\n")
-        f.write("    <meta charset=\"utf-8\" />\n")
-        f.write("    <title>MC Delta - Market Cap Changes</title>\n")
-        f.write("    <script>document.write('<base href=\"' + document.location + '\" />');</script>")
-        f.write("    <link rel=\"stylesheet\" href=\"style.css\" />")
-        f.write("    <script data-require=\"angular.js@1.3.x\" src=\"https://code.angularjs.org/1.3.20/angular.js\" data-semver=\"1.3.20\"></script>")
-        f.write("    <script data-require=\"jquery@3.1.1\" data-semver=\"3.1.1\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>")
-        f.write("    <script src=\"app.js\"></script>")
-        f.write("    <script>")
-        f.write("      $(document).ready(function() {")
-        f.write("  $('tbody').scroll(function(e) { //detect a scroll event on the tbody")
-        f.write("  	/*")
-        f.write("    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement")
-        f.write("    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    ")
-        f.write("    */\n")
-        f.write("    $('thead').css(\"left\", -$(\"tbody\").scrollLeft()); //fix the thead relative to the body scrolling\n")
-        f.write("    $('thead th:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first cell of the header\n")
-        f.write("    $('tbody td:nth-child(1)').css(\"left\", $(\"tbody\").scrollLeft()); //fix the first column of tdbody\n")
-        f.write("  });")
-        f.write("});")
-        f.write("    </script>")
-        f.write("  </head>")
-        f.write("  <body ng-controller=\"MainCtrl\">")
-        f.write("<br/>")
-        f.write("<br/>")
-        f.write("<br/>")
-        f.write("<br/>")
-        
-        mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_04.json"
-        delta_json = open(mcdelta_json_dev_file)
-        data = json.load(delta_json)
-        delta_json.close()
-        mcdelta_list = data["mcdelta"]
-        header_row = True
-        
-        f.write("<table>")
-        for val in mcdelta_list:
-            if header_row:
-                f.write("<thead>")
-                write_header_row(val,f)
-                header_row = False
-                f.write("</thead>")
-                f.write("<tbody>")
-            else:
-                write_row(val,f)
-
-        f.write("</tbody>")
-        f.write("</table>")
-        f.write("")
-        f.write("  </body>")
-        f.write("</html>")
-        f.close()
-    '''
-
-
     def write_mcdelta_html_from_11json_data():
         print("- 11json work")
         def write_header_row(data,f):
@@ -293,8 +90,6 @@ class MCDelta():
                         parse_cell_item(element,f)
             f.write("</tr>")
 
-        #dev11_html_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
-        #dev11_html_file = "/home/dlt05/git-work/git-mcdelta/mcdeltaxp/mcdelta/dev11.html"
         dev11_html_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
 
         try:
@@ -355,6 +150,12 @@ class MCDelta():
         f.write("")
         f.write("  </body>")
         f.write("  <pre>")
+        f.write("  Feb 26<br/>")
+        f.write("      FOAM and TREAT show the patterns exptected.<br/>")
+        f.write("           Will they prove out in an investment.<br/>")
+        f.write("           Will it grow and how far.<br/>")
+        f.write("  The idea, managing your data, of OCEAN looks very interesting.<br/>")
+        f.write("  <br/>")
         f.write("  Feb 25<br/>")
         f.write("      THETA, https://www.thetatoken.org/<br/>")
         f.write("      AUDIO, https://docs.audius.org/protocol/overview<br/>")
@@ -525,7 +326,6 @@ class MCDelta():
         # ( what a pain, python can't call in methods in the class/file
         #   create the file and update it with the root, json dict(ionary ) object, mcdelta
         # the create did not work
-        #mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_obj = {}
         try:
@@ -546,8 +346,6 @@ class MCDelta():
         for file in sorted(os.listdir(referenceDir)):
             last_file = file
 
-        #dir_and_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
-        #dir_and_file = referenceDir+"/"+last_file
         dir_and_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
         f = open(dir_and_file)
         crypto_market_data = json.load(f)
@@ -851,7 +649,6 @@ class MCDelta():
                 print("ERROR writing mcdelta_obj after added ")
 
     def list_file_dates():
-        #data_dir = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/00-raw-dev-data"
         data_dir = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/00-raw-dev-data"
         os.chdir(data_dir)
         listOfFiles = os.listdir('.')
