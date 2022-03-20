@@ -8,3 +8,5 @@ market cap delta - practice github project structure
 # excel packages ... https://www.python-excel.org/
 # 
 
+https://glin.github.io/reactable/articles/sticky-columns.html
+
