@@ -169,7 +169,7 @@ class MCDelta():
         f.write("  <br/>")
         f.write("  <br/>")
         f.write("  Mar 17<br/>")
-        f.write("      Nitro.network v HNT<br/>")
+        f.write("      Nitro.network v HNT v IOTX<br/>")
         f.write("  <br/>")
         f.write("  <br/>")
         f.write("  Mar 16<br/>")
