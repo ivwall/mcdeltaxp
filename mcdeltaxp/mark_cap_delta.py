@@ -504,7 +504,7 @@ class MCDelta():
             data = json.load(f)
             data["mcdelta-date"] = date_header
             json.dump(data, open(dir_and_file, "w"))
-            f.close()
+        f.close()
 
         #--------------------------------------------------------------------------------
         # open mcdelta_11.json
