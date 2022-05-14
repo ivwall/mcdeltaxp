@@ -151,7 +151,7 @@ class MCDelta():
         f.write("<pre>")
         f.write("  May 12<br/>")
         f.write("      The massive market contraction and LUNA's clapse, wow,<br/>")
-        f.write("      I wish I had my the numbers display.<br/>")
+        f.write("      I wish I had the numbers display.<br/>")
         f.write("      <br/>")
         f.write("      Too much to do, limited time.<br/>")
         f.write("      But this inspires me to get back to it.<br/>")
