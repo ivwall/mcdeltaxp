@@ -125,6 +125,7 @@ class MCDelta():
         f.write("  </head>")
         f.write("  <body ng-controller=\"MainCtrl\">")
         f.write("<br/>")
+        f.write("<a href=\"sticky21.html\">Next Table</a><br/>")
         f.write("<br/>")
         #mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
@@ -134,14 +135,14 @@ class MCDelta():
         mcdelta_list = data["mcdelta"]
         header_row = True
         
-        f.write("<table>")
+        f.write("<table align=\"center\">")
         for val in mcdelta_list:
             if header_row:
                 f.write("<thead>")
                 write_header_row(val,f)
                 header_row = False
                 f.write("</thead>")
-                f.write("<tbody>")
+                f.write("<tbody align=\"right\">")
             else:
                 write_row(val,f)
 
