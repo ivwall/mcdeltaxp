@@ -36,14 +36,18 @@ class TDDmcdelta(unittest.TestCase):
     def test30_zip_n_deploy(self):
         subprocess.run(["ls", "-l"])
         subprocess.run(["sudo", "su -"])
-        #gotoDir = '/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp' 
+        #TODO gotoDir = '/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp' 
         gotoDir = '/home/dlt01/git/mcdeltaxp/mcdeltaxp' 
         os.chdir(gotoDir)
         subprocess.run(["ls", "-l"])
+        print("jar")
         subprocess.run(["jar", "cvf", "mcdelta.war", "mcdelta"])
         subprocess.run(["ls", "-l"])
-        subprocess.run(["sudo", "rm", "/opt/tomcat/webapps/mcdelta.war"])
-        subprocess.run(["sudo", "cp", "mcdelta.war", "/opt/tomcat/webapps/"])
+        #subprocess.run(["sudo", "rm", "/opt/tomcat/webapps/mcdelta.war"])
+        #TODO webapps = "/var/lib/tomcat9/webapps/"
+        webapps = "/var/lib/tomcat9/webapps/"
+        subprocess.run(["sudo", "rm", webapps + "mcdelta.war"])
+        subprocess.run(["sudo", "cp", "mcdelta.war", webapps])
         print("")
         subprocess.run(["rm", "mcdelta.war"])
         subprocess.run(["ls", "-l"])
