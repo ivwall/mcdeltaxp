@@ -128,7 +128,8 @@ class MCDelta():
         f.write("<br/>")
         f.write("<a href=\"sticky21.html\">Next Table</a>&nbsp;&nbsp;")
         f.write("<a href=\"https://hrily.github.io/InfiniteScrollDemo/\">InfiniteScroleDemo</a>&nbsp;&nbsp;")
-        f.write("<a href=\https://hrily.github.io/blog/2017/05/20/rendering-large-html-tables.html\">Technical discussion</a><br/>")
+        f.write("<a href=\https://hrily.github.io/blog/2017/05/20/rendering-large-html-tables.html\">Technical discussion</a>&nbsp;&nbsp;")
+        f.write("<a href=\file:///home/dlt01/git/mcdeltaxp/next-table/sticky21.html\">Next Table</a><br/>")
         f.write("<br/>")
         #TODO mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
         mcdelta_json_dev_file = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
