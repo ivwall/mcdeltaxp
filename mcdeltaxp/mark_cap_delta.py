@@ -4,11 +4,12 @@ import json
 import datetime
 from datetime import date
 import os
-from operator import itemgetter
-import sys
 
 cdata_site = "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000000"
-
+dev11_file_location = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
+mcdelta_json_dev_file_location = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+referenceDir_location = '/home/dlt01/git/mcdeltaxp/mcdeltaxp/01-reference-data'
+                     #   "/home/dlt01/git/mcdeltaxp/mcdeltaxp/01-reference-data/"
 class MCDelta():
 
     def get_raw_coinstats_on_run():
@@ -56,10 +57,8 @@ class MCDelta():
                 #print(x["delta"])
                 #print(x["var1"])
                 if x["delta"] == "+1":
-                    #print("+1")
                     f.write("<td style=\"background-color:#a8d08d; text-align:center;\">")
                 elif x["delta"] == "-1":
-                    #print("-1")
                     f.write("<td style=\"background-color:#e99d9b; text-align:center;\">")
 
         def parse_cell_item(data,f):
@@ -90,8 +89,7 @@ class MCDelta():
                         parse_cell_item(element,f)
             f.write("</tr>")
 
-        #TODO dev11_html_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
-        dev11_html_file = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/mcdelta/dev11.html"
+        dev11_html_file = dev11_file_location
 
         try:
             os.remove( dev11_html_file )
@@ -131,8 +129,9 @@ class MCDelta():
         f.write("<a href=\https://hrily.github.io/blog/2017/05/20/rendering-large-html-tables.html\">Technical discussion</a>&nbsp;&nbsp;")
         f.write("<a href=\file:///home/dlt01/git/mcdeltaxp/next-table/sticky21.html\">Next Table</a><br/>")
         f.write("<br/>")
-        #TODO mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_json_dev_file = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+
+        mcdelta_json_dev_file = mcdelta_json_dev_file_location
+
         delta_json = open(mcdelta_json_dev_file)
         data = json.load(delta_json)
         delta_json.close()
@@ -154,9 +153,22 @@ class MCDelta():
         f.write("</table>")
         f.write("</body>")
         f.write("<pre>")
+        f.write("  July 7<br/>")
+        f.write("       WELL, https://moonwell.fi/artemis/BTC.mad<br/>")
+        f.write("             https://docs.moonwell.fi/moonwell-finance/overview/why-moonwell<br/>")
+        f.write("             Moonwell's Mission<br/>")
+        f.write("                Most DeFi platforms suffer from at least one of the following issues:<br/>")
+        f.write("                - Lack of security and trust<br/>")
+        f.write("                - Poor user experience<br/>")
+        f.write("                - Lack of education and information<br/>")
+        f.write("                - Poor community engagement<br/>")
+        f.write("        I DO agree with that list of issues.<br/>")
+        f.write("  <br/>")
+        f.write("  <br/>")
         f.write("  Jun 24<br/>")
-        f.write("  KAVA, https://www.kava.io/, good DeFi DeGen opportunities<br/>")
-        f.write("  ALICE, https://www.myneighboralice.com/game, play to earn, nfts, etc.<br/>")
+        f.write("       KAVA, https://www.kava.io/, good DeFi DeGen opportunities<br/>")
+        f.write("       ALICE, https://www.myneighboralice.com/game, play to earn, nfts, etc.<br/>")
+        f.write("              I've lost interest in ALICE b/c it appears to only run on windows.<br/>")
         f.write("  <br/>")
         f.write("  <br/>")
         f.write("  Jun 22<br/>")
@@ -618,75 +630,6 @@ class MCDelta():
         f.write("</html>")
         f.close()
 
-
-    def generate_from_scratch_mcdelta_11json_file():
-        print("- generate_from_scratch_mcdelta_11json_file()")
-        #---------------------------------------------------------------------------------
-        #
-        # If mcdelta_11.json does not exist then
-        # create the file and update it with the root, json dict(ionary) object, mcdelta
-        # 
-
-        #mcdelta_json_dev_file = "/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_obj = {}
-        if os.path.isfile(mcdelta_json_dev_file) is False:
-            mcdelta_obj.update({
-                "mcdelta":[]
-            })
-            with open(mcdelta_json_dev_file, 'w') as json_file:
-                json.dump(mcdelta_obj, json_file)
-
-        else:
-            with open(mcdelta_json_dev_file) as fp:
-                mcdelta_obj = json.load(fp)
-
-        #with open(mcdelta_json_dev_file, 'w') as json_file:
-        #    json.dump(mcdelta_obj, json_file)
-
-        #--------------------------------------------------------------------------------
-        #
-        # Pull out market data from a reference file  
-        #
-        referenceDir = '/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data'
-        #for file in sorted(os.listdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')):
-        for file in sorted(os.listdir(referenceDir)):
-            print(">> ",file)
-            last_file = file
-
-        last_file = "/home/dlt06/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
-        print(">>> last file", last_file)
-        f = open(last_file)
-        crypto_market_data = json.load(f)
-        f.close()
-
-        #--------------------------------------------------------------------------------
-        #
-        # Add column 1: date for header row
-        #               rows for cap ex listing, current 2000 rows
-        #
-
-        if type(mcdelta_obj["mcdelta"]) == type(list()):
-            mcdelta_length = len(mcdelta_obj["mcdelta"])
-            if mcdelta_length == 0:
-                mcdelta_obj["mcdelta"].insert(0,{"dates":[]})
-
-        if type(mcdelta_obj["mcdelta"]) == type(list()):
-            mcdelta_length = len(mcdelta_obj["mcdelta"])
-            if mcdelta_length == 1:   # <==== meaning, only the header row exists
-
-                number_of_coins = len(crypto_market_data ["coins"])
-
-                for s in range(0,number_of_coins):  # <=== add a row for each coin
-                    x = s + 1
-                    mcdelta_obj["mcdelta"].insert(x,{str(x):[]})
-
-        #--------------------------------------------------------------------------------
-        # Write, dump, the file
-        #
-        with open(mcdelta_json_dev_file, 'w') as json_file:
-            json.dump(mcdelta_obj, json_file)
-
     def update_mcdelta_11json_file():
         print("- update_mcdelta_11json_file")
         #---------------------------------------------------------------------------------
@@ -694,8 +637,9 @@ class MCDelta():
         # ( what a pain, python can't call in methods in the class/file
         #   create the file and update it with the root, json dict(ionary ) object, mcdelta
         # the create did not work
-        #TODO mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_json_dev_file = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+
+        mcdelta_json_dev_file = mcdelta_json_dev_file_location
+
         mcdelta_obj = {}
         try:
             with open(mcdelta_json_dev_file) as fp:
@@ -710,14 +654,14 @@ class MCDelta():
         # Pull out market data from the newest reference file  
         #
         last_file = ""
-        referenceDir = '/home/dlt01/git/mcdeltaxp/mcdeltaxp/01-reference-data'
-        #TODO referenceDir = '/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data'
-        #for file in sorted(os.listdir('/home/dlt03/gitprojects/mcdeltaxp/mcdeltaxp/01-reference-data')):
+
+        referenceDir = referenceDir_location
+
         for file in sorted(os.listdir(referenceDir)):
             last_file = file
 
-        #dir_and_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
-        dir_and_file = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/01-reference-data/"+last_file
+        dir_and_file = referenceDir_location + "/" + last_file
+
         f = open(dir_and_file)
         crypto_market_data = json.load(f)
         f.close()
@@ -727,7 +671,6 @@ class MCDelta():
         #
         left_str = last_file.split(".")
         date_object = date.fromtimestamp(int(left_str[0]))
-        time_object = date.fromtimestamp(int(left_str[1]))
 
         date_str = str(date_object)
         date_split = date_str.split('-')
@@ -770,8 +713,6 @@ class MCDelta():
         # The mcdelta date format, add an item, mcdelta-date, to the reference file.
         # https://stackoverflow.com/questions/21035762/python-read-json-file-and-modify
         # Write the date_header, the column name for this info, into the file.
-        # with open(last_file) as f:
-        # print("---->",dir_and_file)
         with open(dir_and_file) as f:
             data = json.load(f)
             data["mcdelta-date"] = date_header
@@ -877,8 +818,8 @@ class MCDelta():
         # the create did not work
         # 
         
-        #TODO mcdelta_json_dev_file = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
-        mcdelta_json_dev_file = "/home/dlt01/git/mcdeltaxp/mcdeltaxp/02-mcdelta-json/mcdelta_11.json"
+        mcdelta_json_dev_file = mcdelta_json_dev_file_location
+
         delta_json = open(mcdelta_json_dev_file)
         data = json.load(delta_json)
         delta_json.close()
@@ -1019,11 +960,4 @@ class MCDelta():
                 f.close()
             except:
                 print("ERROR writing mcdelta_obj after added ")
-
-    def list_file_dates():
-        data_dir = "/home/dlt06/git-work/git-mcdelta/mcdeltaxp/mcdeltaxp/00-raw-dev-data"
-        os.chdir(data_dir)
-        listOfFiles = os.listdir('.')
-        for entry in listOfFiles:
-            print("Date = ", date.fromtimestamp(float(entry)),", File Name = ", entry)
             
